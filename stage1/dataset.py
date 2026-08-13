@@ -22,13 +22,16 @@ for l, r in zip(LEFT_KP, RIGHT_KP):
 
 class SegmentDataset(Dataset):
     def __init__(self, rows, cache_dir="cache/segments", window=200,
-                 train=False, flip_prob=0.5, seed=0):
+                 train=False, flip_prob=0.5, seed=0, joint_dropout=0.0,
+                 velocity=False):
         self.rows = rows
         self.mm = np.memmap(f"{cache_dir}/keypoints.f32", dtype=np.float32,
                             mode="r")
         self.window = window
         self.train = train
         self.flip_prob = flip_prob
+        self.joint_dropout = joint_dropout
+        self.velocity = velocity
         self.rng = np.random.RandomState(seed)
 
     def __len__(self):
@@ -61,8 +64,19 @@ class SegmentDataset(Dataset):
             xy = xy[:, FLIP_ORDER]
             score = score[:, FLIP_ORDER]
             xy[..., 0] = -xy[..., 0]
+        if self.train and self.joint_dropout > 0:
+            # zero whole joints for the whole window so missing data stops
+            # being informative (shortcut control, see stage1_report.md)
+            drop = self.rng.rand(17) < self.joint_dropout
+            xy[:, drop] = 0.0
+            score = score.copy()
+            score[:, drop] = 0.0
 
-        out = np.concatenate([xy, score[..., None]], axis=2)  # (w,17,3)
+        chans = [xy, score[..., None]]
+        if self.velocity:
+            v = np.diff(xy, axis=0, prepend=xy[:1])       # (w,17,2)
+            chans.insert(1, v)
+        out = np.concatenate(chans, axis=2)               # (w,17,3 or 5)
         x = torch.from_numpy(np.ascontiguousarray(out.transpose(2, 0, 1))).float()
         return x, int(r["binary_label"])
 

@@ -1,0 +1,29 @@
+# Stage 1 detector v2. Changes vs v1: velocity channels (c_in 5) and joint
+# dropout, both aimed at reducing tracking-quality shortcut reliance after
+# v1 measured standard 0.8432 / hard-negative 0.7594 (checkpoint: 0.8347 /
+# 0.7967). All temporal quantities in FRAMES.
+
+model:
+  widths: [48, 96, 136]
+  blocks_per_stage: 2
+  c_in: 5                   # x, y, dx, dy, confidence
+
+data:
+  cache_dir: cache/segments
+  window: 200
+  val_child_fraction: 0.2
+  normalize: per-window
+  velocity: true
+
+train:
+  epochs: 50
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.0001
+  optimizer: adamw
+  schedule: cosine
+  balanced_sampling: true
+  flip_prob: 0.5
+  joint_dropout: 0.15       # whole-joint dropout per sample
+
+seed: 0

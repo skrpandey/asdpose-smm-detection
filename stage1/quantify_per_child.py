@@ -74,6 +74,7 @@ class OursBackend:
         self.model.load_state_dict(ckpt["state_dict"])
         self.model = self.model.to(device).eval()
         self.device = device
+        self.velocity = ckpt["config"]["data"].get("velocity", False)
 
     @torch.no_grad()
     def score_windows(self, kp, sc, spans, img_shape):
@@ -85,7 +86,11 @@ class OursBackend:
                 w_kp = np.tile(w_kp, (reps, 1, 1))[:WINDOW]
                 w_sc = np.tile(w_sc, (reps, 1))[:WINDOW]
             xy = normalize_window(w_kp, w_sc)
-            arr = np.concatenate([xy, w_sc[..., None].astype(np.float32)], axis=2)
+            chans = [xy, w_sc[..., None].astype(np.float32)]
+            if self.velocity:
+                v = np.diff(xy, axis=0, prepend=xy[:1])
+                chans.insert(1, v)
+            arr = np.concatenate(chans, axis=2)
             xs.append(arr.transpose(2, 0, 1))
         out = []
         for i in range(0, len(xs), 256):
@@ -94,20 +99,32 @@ class OursBackend:
         return np.concatenate(out)
 
 
+def _baseline_preprocess(args):
+    from posec3d import preprocess_window
+    i, kp, sc, img_shape = args
+    return i, preprocess_window(kp, sc, img_shape)
+
+
 class BaselineBackend:
-    def __init__(self, weights, device):
-        from posec3d import PoseConv3D, preprocess_window
-        self.preprocess = preprocess_window
+    """Heatmap preprocessing is the bottleneck (0.22 s/window single core),
+    so it runs in a worker pool overlapped with the GPU forward."""
+
+    def __init__(self, weights, device, workers=8):
+        from multiprocessing import Pool
+        from posec3d import PoseConv3D
         self.model = PoseConv3D()
         self.model.load_mmaction_checkpoint(weights)
         self.model = self.model.to(device).eval()
         self.device = device
+        self.pool = Pool(workers)
 
     @torch.no_grad()
     def score_windows(self, kp, sc, spans, img_shape):
+        jobs = [(i, kp[None, s:t], sc[None, s:t], img_shape)
+                for i, (s, t) in enumerate(spans)]
         out = np.zeros(len(spans))
-        for i, (s, t) in enumerate(spans):
-            imgs = self.preprocess(kp[None, s:t], sc[None, s:t], img_shape)
+        for i, imgs in self.pool.imap_unordered(_baseline_preprocess, jobs,
+                                                chunksize=4):
             x = torch.from_numpy(imgs).to(self.device)
             out[i] = F.softmax(self.model(x), 1).mean(0)[1].item()
         return out
