@@ -1,0 +1,25 @@
+# Stage 1 detector training config. All temporal quantities in FRAMES
+# (the release's fps fields are unreliable, see stage0_report.md).
+
+model:
+  widths: [48, 96, 136]     # 352.9K params
+  blocks_per_stage: 2
+  c_in: 3                   # x, y, confidence; score channel kept on purpose
+
+data:
+  cache_dir: cache/segments
+  window: 200               # frames
+  val_child_fraction: 0.2   # subject-level val carved from train children
+  normalize: per-window     # center/scale over valid joints; missing stay 0
+
+train:
+  epochs: 50
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.0001
+  optimizer: adamw
+  schedule: cosine
+  balanced_sampling: true
+  flip_prob: 0.5
+
+seed: 0

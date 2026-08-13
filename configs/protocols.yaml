@@ -1,0 +1,20 @@
+# Evaluation protocols for Stage 1+. Frozen 2026-08-12; do not tune these
+# against results. Thresholds come from Gate 0.2 statistics, chosen before
+# any model was trained (see reports/stage0_review_and_stage1_plan.md).
+
+standard:
+  # released test split, all segments
+  split: test
+
+hard_negative:
+  # same SMM positives; negatives restricted to child-present, well-tracked
+  # segments so a model cannot win on tracking quality alone
+  split: test
+  negative_filter:
+    q_frozen_max: 0.10        # frozen-frame fraction below 10%
+    q_arm_lowconf_max: 0.30   # arm-joint low-confidence fraction below 30%
+
+report_thresholds: [0.5, 0.85]
+matched_recall: 0.9253        # published recall, for operating-point comparison
+
+seed: 0
