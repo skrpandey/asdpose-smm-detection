@@ -123,14 +123,29 @@ class BaselineBackend:
         self.pool = Pool(workers)
 
     @torch.no_grad()
-    def score_windows(self, kp, sc, spans, img_shape):
+    def score_windows(self, kp, sc, spans, img_shape, batch_windows=2):
         jobs = [(i, kp[None, s:t], sc[None, s:t], img_shape)
                 for i, (s, t) in enumerate(spans)]
         out = np.zeros(len(spans))
+        pending = []
+
+        def flush():
+            idxs = [i for i, _ in pending]
+            x = torch.from_numpy(np.concatenate([m for _, m in pending])).to(self.device)
+            with torch.autocast("cuda", dtype=torch.float16):
+                logits = self.model(x)
+            probs = F.softmax(logits.float(), 1).view(len(pending), -1, 2).mean(1)
+            for j, i in enumerate(idxs):
+                out[i] = probs[j, 1].item()
+            pending.clear()
+
         for i, imgs in self.pool.imap_unordered(_baseline_preprocess, jobs,
                                                 chunksize=4):
-            x = torch.from_numpy(imgs).to(self.device)
-            out[i] = F.softmax(self.model(x), 1).mean(0)[1].item()
+            pending.append((i, imgs))
+            if len(pending) >= batch_windows:
+                flush()
+        if pending:
+            flush()
         return out
 
 
