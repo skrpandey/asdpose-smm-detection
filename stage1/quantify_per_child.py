@@ -184,6 +184,11 @@ def main():
     ap.add_argument("--weights", default=None)
     ap.add_argument("--threshold", type=float, default=0.85)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--no-correlation", action="store_true",
+                    help="skip the correlation step (no dataset.pkl needed); "
+                    "compute correlations separately from the CSV")
+    ap.add_argument("--shard", default=None,
+                    help="k/n: score only recordings with sorted-index %% n == k")
     args = ap.parse_args()
 
     device = "cuda"
@@ -195,9 +200,17 @@ def main():
     zf = zipfile.ZipFile(f"{args.data_root}/asdpose.zip")
     rows = list(csv.DictReader(io.TextIOWrapper(zf.open("db.csv"))))
     by_child = defaultdict(list)
+    all_files = sorted(r["filename"] for r in rows
+                       if int(r["child_id"]) in TEST_CHILDREN_IN_ZIP)
+    if args.shard:
+        k, n = map(int, args.shard.split("/"))
+        keep = {f for i, f in enumerate(all_files) if i % n == k}
+        print(f"shard {k}/{n}: {len(keep)} of {len(all_files)} recordings")
+    else:
+        keep = set(all_files)
     for r in rows:
         c = int(r["child_id"])
-        if c in TEST_CHILDREN_IN_ZIP:
+        if c in TEST_CHILDREN_IN_ZIP and r["filename"] in keep:
             by_child[c].append(r["filename"])
 
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
@@ -248,6 +261,10 @@ def main():
             print(f"[{done}/{n_rec}] {fname}: {len(spans)} windows, "
                   f"{smm_frames} SMM frames "
                   f"({(time.time()-t0)/60:.1f} min elapsed)", flush=True)
+
+    if args.no_correlation:
+        print(f"written {args.out} (correlation step skipped)")
+        return
 
     out_rows = list(csv.DictReader(open(args.out)))
     for r in out_rows:
