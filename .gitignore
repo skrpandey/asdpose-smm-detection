@@ -49,3 +49,9 @@ htmlcov/
 # Logs
 *.log
 cache/
+
+# Run logs and evidence are versioned
+!logs/
+!logs/**
+!results/
+!results/**

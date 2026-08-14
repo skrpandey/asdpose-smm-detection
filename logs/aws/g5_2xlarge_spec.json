@@ -1,0 +1,23 @@
+{
+    "vcpu": {
+        "DefaultVCpus": 8,
+        "DefaultCores": 4,
+        "DefaultThreadsPerCore": 2
+    },
+    "mem": {
+        "SizeInMiB": 32768
+    },
+    "gpu": {
+        "Gpus": [
+            {
+                "Name": "A10G",
+                "Manufacturer": "NVIDIA",
+                "Count": 1,
+                "MemoryInfo": {
+                    "SizeInMiB": 22888
+                }
+            }
+        ],
+        "TotalGpuMemoryInMiB": 22888
+    }
+}

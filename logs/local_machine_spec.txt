@@ -1,0 +1,17 @@
+=== local machine spec, captured Fri Aug 14 03:07:52 PM UTC 2026 ===
+--- GPU ---
+name, memory.total [MiB], driver_version
+Quadro RTX 4000, 8192 MiB, 555.42.06
+--- CPU ---
+CPU(s):                                  12
+Model name:                              Intel(R) Xeon(R) W-10855M CPU @ 2.80GHz
+Thread(s) per core:                      2
+--- RAM ---
+               total        used        free      shared  buff/cache   available
+Mem:            62Gi        21Gi        11Gi       1.8Gi        29Gi        38Gi
+--- OS ---
+5.15.0-185-generic
+Description:	Ubuntu 22.04.5 LTS
+--- Python/torch ---
+Python 3.12.2
+torch 2.9.1+cu128 cuda 12.8

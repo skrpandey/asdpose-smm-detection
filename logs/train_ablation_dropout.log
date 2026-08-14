@@ -1,0 +1,55 @@
+train 25218 / val 6959 (57 children) / test 4751
+params: 352.9K
+epoch   1 loss 0.5883 val AUC 0.7653 (1.8 min) *
+epoch   2 loss 0.5164 val AUC 0.7794 (3.6 min) *
+epoch   3 loss 0.4917 val AUC 0.8025 (5.5 min) *
+epoch   4 loss 0.4853 val AUC 0.8118 (7.3 min) *
+epoch   5 loss 0.4722 val AUC 0.8286 (9.1 min) *
+epoch   6 loss 0.4605 val AUC 0.8219 (10.9 min)
+epoch   7 loss 0.4564 val AUC 0.8293 (12.7 min) *
+epoch   8 loss 0.4458 val AUC 0.8303 (14.6 min) *
+epoch   9 loss 0.4354 val AUC 0.8397 (16.4 min) *
+epoch  10 loss 0.4343 val AUC 0.8308 (18.2 min)
+epoch  11 loss 0.4255 val AUC 0.8463 (20.0 min) *
+epoch  12 loss 0.4153 val AUC 0.8471 (21.8 min) *
+epoch  13 loss 0.3996 val AUC 0.8463 (23.7 min)
+epoch  14 loss 0.3815 val AUC 0.8646 (25.5 min) *
+epoch  15 loss 0.3482 val AUC 0.8828 (27.3 min) *
+epoch  16 loss 0.3197 val AUC 0.9035 (29.1 min) *
+epoch  17 loss 0.2949 val AUC 0.9167 (30.9 min) *
+epoch  18 loss 0.2786 val AUC 0.9142 (32.7 min)
+epoch  19 loss 0.2732 val AUC 0.9146 (34.5 min)
+epoch  20 loss 0.2605 val AUC 0.9231 (36.3 min) *
+epoch  21 loss 0.2406 val AUC 0.9253 (38.1 min) *
+epoch  22 loss 0.2417 val AUC 0.9279 (39.9 min) *
+epoch  23 loss 0.2315 val AUC 0.9161 (41.7 min)
+epoch  24 loss 0.2202 val AUC 0.9240 (43.4 min)
+epoch  25 loss 0.2139 val AUC 0.9313 (45.2 min) *
+epoch  26 loss 0.2063 val AUC 0.9282 (47.0 min)
+epoch  27 loss 0.1946 val AUC 0.9247 (48.8 min)
+epoch  28 loss 0.1939 val AUC 0.9287 (50.6 min)
+epoch  29 loss 0.1829 val AUC 0.9303 (52.4 min)
+epoch  30 loss 0.1754 val AUC 0.9276 (54.2 min)
+epoch  31 loss 0.1721 val AUC 0.9297 (56.1 min)
+epoch  32 loss 0.1713 val AUC 0.9264 (57.9 min)
+epoch  33 loss 0.1648 val AUC 0.9258 (59.7 min)
+epoch  34 loss 0.1610 val AUC 0.9307 (61.5 min)
+epoch  35 loss 0.1474 val AUC 0.9347 (63.3 min) *
+epoch  36 loss 0.1494 val AUC 0.9304 (65.1 min)
+epoch  37 loss 0.1486 val AUC 0.9329 (67.0 min)
+epoch  38 loss 0.1439 val AUC 0.9271 (68.8 min)
+epoch  39 loss 0.1363 val AUC 0.9277 (70.6 min)
+epoch  40 loss 0.1375 val AUC 0.9292 (72.4 min)
+epoch  41 loss 0.1265 val AUC 0.9275 (74.2 min)
+epoch  42 loss 0.1285 val AUC 0.9301 (76.0 min)
+epoch  43 loss 0.1265 val AUC 0.9269 (77.9 min)
+epoch  44 loss 0.1313 val AUC 0.9318 (79.7 min)
+epoch  45 loss 0.1247 val AUC 0.9267 (81.5 min)
+epoch  46 loss 0.1242 val AUC 0.9304 (83.3 min)
+epoch  47 loss 0.1227 val AUC 0.9282 (85.1 min)
+epoch  48 loss 0.1204 val AUC 0.9266 (86.9 min)
+epoch  49 loss 0.1226 val AUC 0.9272 (88.7 min)
+epoch  50 loss 0.1147 val AUC 0.9284 (90.5 min)
+
+best val AUC 0.9347; test AUC 0.9377
+saved cache/stage1_abl_dropout.pt and test scores

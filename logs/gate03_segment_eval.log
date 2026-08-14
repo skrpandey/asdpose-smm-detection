@@ -1,0 +1,26 @@
+test segments: 4751
+250/4751 (2.4/s, eta 31 min)
+500/4751 (2.6/s, eta 28 min)
+750/4751 (2.5/s, eta 26 min)
+1000/4751 (2.5/s, eta 25 min)
+1250/4751 (2.4/s, eta 24 min)
+1500/4751 (2.5/s, eta 22 min)
+1750/4751 (2.5/s, eta 20 min)
+2000/4751 (2.5/s, eta 19 min)
+2250/4751 (2.5/s, eta 17 min)
+2500/4751 (2.4/s, eta 16 min)
+2750/4751 (2.4/s, eta 14 min)
+3000/4751 (2.4/s, eta 12 min)
+3250/4751 (2.4/s, eta 10 min)
+3500/4751 (2.4/s, eta 9 min)
+3750/4751 (2.4/s, eta 7 min)
+4000/4751 (2.4/s, eta 5 min)
+4250/4751 (2.4/s, eta 3 min)
+4500/4751 (2.5/s, eta 2 min)
+4750/4751 (2.5/s, eta 0 min)
+
+threshold 0.85
+TP 405 FP 77 FN 652 TN 3617
+precision 0.8402 recall 0.3832 specificity 0.9792 AUC 0.8346
+(published frame-wise: precision 0.6682 recall 0.9253 specificity 0.9545 on the 21-child reannotated test set)
+per-segment scores written to cache/gate03_segment_scores.csv
