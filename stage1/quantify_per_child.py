@@ -139,11 +139,15 @@ class BaselineBackend:
                 out[i] = probs[j, 1].item()
             pending.clear()
 
+        n_done = 0
         for i, imgs in self.pool.imap_unordered(_baseline_preprocess, jobs,
                                                 chunksize=4):
             pending.append((i, imgs))
             if len(pending) >= batch_windows:
                 flush()
+            n_done += 1
+            if n_done % 200 == 0:
+                print(f"    {n_done}/{len(jobs)} windows", flush=True)
         if pending:
             flush()
         return out
