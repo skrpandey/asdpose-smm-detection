@@ -34,7 +34,8 @@ from protocols import load_index, auc
 def score_rows(model, rows, cfg, device, batch=128):
     ds = SegmentDataset(rows, cfg["data"]["cache_dir"],
                         cfg["data"]["window"], train=False,
-                        velocity=cfg["data"].get("velocity", False))
+                        velocity=cfg["data"].get("velocity", False),
+                        normalize=cfg["data"].get("normalize_mode", "window-std"))
     dl = DataLoader(ds, batch_size=batch, num_workers=6)
     model.eval()
     out = []
@@ -82,7 +83,8 @@ def main():
     ds = SegmentDataset(tr_rows, cfg["data"]["cache_dir"], cfg["data"]["window"],
                         train=True, flip_prob=tcfg["flip_prob"], seed=seed,
                         joint_dropout=tcfg.get("joint_dropout", 0.0),
-                        velocity=cfg["data"].get("velocity", False))
+                        velocity=cfg["data"].get("velocity", False),
+                        normalize=cfg["data"].get("normalize_mode", "window-std"))
     labels = np.array([r["binary_label"] for r in tr_rows])
     if tcfg["balanced_sampling"]:
         w = np.where(labels == 1, 1.0 / (labels == 1).sum(),

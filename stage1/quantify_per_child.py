@@ -53,13 +53,16 @@ def windows_of(total):
     return [(s, min(s + WINDOW, total)) for s in starts if min(s + WINDOW, total) - s >= 2 * STEP]
 
 
-def normalize_window(kp, sc):
+def normalize_window(kp, sc, mode="window-std", img_h=None):
     """Same per-window normalization as SegmentDataset."""
     xy = kp.astype(np.float32).copy()
     valid = sc > 0
     if valid.any():
         center = xy[valid].mean(axis=0)
-        scale = max(xy[valid].std(), 1e-3)
+        if mode == "window-std":
+            scale = max(xy[valid].std(), 1e-3)
+        else:
+            scale = img_h / 2.0
         xy = np.where(valid[..., None], (xy - center) / scale, 0.0)
     return xy
 
@@ -75,6 +78,7 @@ class OursBackend:
         self.model = self.model.to(device).eval()
         self.device = device
         self.velocity = ckpt["config"]["data"].get("velocity", False)
+        self.normalize = ckpt["config"]["data"].get("normalize_mode", "window-std")
 
     @torch.no_grad()
     def score_windows(self, kp, sc, spans, img_shape):
@@ -85,7 +89,7 @@ class OursBackend:
                 reps = int(np.ceil(WINDOW / (t - s)))
                 w_kp = np.tile(w_kp, (reps, 1, 1))[:WINDOW]
                 w_sc = np.tile(w_sc, (reps, 1))[:WINDOW]
-            xy = normalize_window(w_kp, w_sc)
+            xy = normalize_window(w_kp, w_sc, self.normalize, img_shape[0])
             chans = [xy, w_sc[..., None].astype(np.float32)]
             if self.velocity:
                 v = np.diff(xy, axis=0, prepend=xy[:1])
@@ -178,12 +182,27 @@ def main():
             by_child[c].append(r["filename"])
 
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
-    out_rows = []
+    fieldnames = ["child_id", "filename", "n_frames", "fps_recording",
+                  "n_windows", "smm_frames", "smm_seconds_nominal",
+                  "score_mass", "minutes"]
+    # resume: skip recordings already scored in a previous partial run
+    done_files = set()
+    if os.path.exists(args.out):
+        done_rows = list(csv.DictReader(open(args.out)))
+        done_files = {r["filename"] for r in done_rows}
+        print(f"resuming: {len(done_files)} recordings already in {args.out}",
+              flush=True)
+    else:
+        with open(args.out, "w", newline="") as f:
+            csv.DictWriter(f, fieldnames=fieldnames).writeheader()
+
     t0 = time.time()
     n_rec = sum(len(v) for v in by_child.values())
-    done = 0
+    done = len(done_files)
     for child in sorted(by_child):
         for fname in by_child[child]:
+            if fname in done_files:
+                continue
             with zf.open(f"data/{fname}.pkl") as f:
                 rec = pickle.load(f)
             kp = rec["keypoint"][0]
@@ -196,29 +215,35 @@ def main():
             for (s, t), v in zip(spans, scores):
                 np.maximum(frame_score[s:t], v, out=frame_score[s:t])
             smm_frames = int((frame_score > args.threshold).sum())
-            out_rows.append({
+            row = {
                 "child_id": child, "filename": fname, "n_frames": total,
                 "fps_recording": rec["fps"], "n_windows": len(spans),
                 "smm_frames": smm_frames,
                 "smm_seconds_nominal": smm_frames / rec["fps"],
+                "score_mass": f"{float(frame_score.sum()):.2f}",
                 "minutes": total / rec["fps"] / 60,
-            })
+            }
+            with open(args.out, "a", newline="") as f:
+                csv.DictWriter(f, fieldnames=fieldnames).writerow(row)
             done += 1
             print(f"[{done}/{n_rec}] {fname}: {len(spans)} windows, "
                   f"{smm_frames} SMM frames "
                   f"({(time.time()-t0)/60:.1f} min elapsed)", flush=True)
 
-    with open(args.out, "w", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=list(out_rows[0].keys()))
-        w.writeheader()
-        w.writerows(out_rows)
+    out_rows = list(csv.DictReader(open(args.out)))
+    for r in out_rows:
+        r["child_id"] = int(r["child_id"])
+        r["smm_frames"] = int(r["smm_frames"])
+        r["minutes"] = float(r["minutes"])
 
     # per-child correlation against annotation-derived totals
     pred = defaultdict(int)
     minutes = defaultdict(float)
+    mass = defaultdict(float)
     for r in out_rows:
         pred[r["child_id"]] += r["smm_frames"]
         minutes[r["child_id"]] += r["minutes"]
+        mass[r["child_id"]] += float(r["score_mass"])
     ann = annotation_totals(args.data_root)
     children = sorted(set(pred) & set(ann))
     x = np.array([pred[c] for c in children], float)
@@ -234,6 +259,10 @@ def main():
     rate_x = np.array([pred[c] / minutes[c] for c in children])
     sp2 = spearmanr(rate_x, y)
     print(f"rate/min vs annotated frames: Spearman {sp2.statistic:.4f}")
+    mass_x = np.array([mass[c] for c in children])
+    sp3 = spearmanr(mass_x, y)
+    print(f"score mass (threshold-free) vs annotated frames: "
+          f"Spearman {sp3.statistic:.4f}")
     print(f"written {args.out}")
 
 

@@ -23,7 +23,7 @@ for l, r in zip(LEFT_KP, RIGHT_KP):
 class SegmentDataset(Dataset):
     def __init__(self, rows, cache_dir="cache/segments", window=200,
                  train=False, flip_prob=0.5, seed=0, joint_dropout=0.0,
-                 velocity=False):
+                 velocity=False, normalize="window-std"):
         self.rows = rows
         self.mm = np.memmap(f"{cache_dir}/keypoints.f32", dtype=np.float32,
                             mode="r")
@@ -32,6 +32,8 @@ class SegmentDataset(Dataset):
         self.flip_prob = flip_prob
         self.joint_dropout = joint_dropout
         self.velocity = velocity
+        assert normalize in ("window-std", "image")
+        self.normalize = normalize
         self.rng = np.random.RandomState(seed)
 
     def __len__(self):
@@ -58,8 +60,13 @@ class SegmentDataset(Dataset):
         valid = score > 0
         if valid.any():
             center = xy[valid].mean(axis=0)
-            scale = xy[valid].std()
-            xy = np.where(valid[..., None], (xy - center) / max(scale, 1e-3), 0.0)
+            if self.normalize == "window-std":
+                scale = max(xy[valid].std(), 1e-3)
+            else:
+                # image scale: a nearly still child stays nearly still instead
+                # of having its tracking jitter amplified to unit variance
+                scale = float(r["img_h"]) / 2.0
+            xy = np.where(valid[..., None], (xy - center) / scale, 0.0)
         if self.train and self.rng.rand() < self.flip_prob:
             xy = xy[:, FLIP_ORDER]
             score = score[:, FLIP_ORDER]

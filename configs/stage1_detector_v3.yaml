@@ -1,0 +1,30 @@
+# Stage 1 detector v3: v2 plus the segment-to-deployment transfer fixes.
+# Changes vs v2: image-scale normalization (window-std amplified tracking
+# jitter of still children into movement-sized signal on untrimmed
+# recordings) and natural class prior (balanced sampling trained at a
+# 50/50 prior; deployment is ~3% SMM). All temporal quantities in FRAMES.
+
+model:
+  widths: [48, 96, 136]
+  blocks_per_stage: 2
+  c_in: 5                   # x, y, dx, dy, confidence
+
+data:
+  cache_dir: cache/segments
+  window: 200
+  val_child_fraction: 0.2
+  normalize_mode: image     # center per window, scale by img_h/2
+  velocity: true
+
+train:
+  epochs: 50
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.0001
+  optimizer: adamw
+  schedule: cosine
+  balanced_sampling: false  # natural prior (~22% SMM in train segments)
+  flip_prob: 0.5
+  joint_dropout: 0.15
+
+seed: 0
