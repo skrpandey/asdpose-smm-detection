@@ -104,9 +104,22 @@ class OursBackend:
 
 
 def _baseline_preprocess(args):
+    """Returns sparse (indices, values, shape): the heatmaps are ~99.7%
+    zeros and the dense 205 MB array through the pool pipe was the real
+    bottleneck (not the GPU)."""
     from posec3d import preprocess_window
     i, kp, sc, img_shape = args
-    return i, preprocess_window(kp, sc, img_shape)
+    imgs = preprocess_window(kp, sc, img_shape)
+    idx = np.flatnonzero(imgs)
+    return i, (idx.astype(np.int64), imgs.ravel()[idx].astype(np.float16),
+               imgs.shape)
+
+
+def _densify(sparse):
+    idx, vals, shape = sparse
+    out = np.zeros(int(np.prod(shape)), dtype=np.float32)
+    out[idx] = vals
+    return out.reshape(shape)
 
 
 class BaselineBackend:
@@ -140,9 +153,9 @@ class BaselineBackend:
             pending.clear()
 
         n_done = 0
-        for i, imgs in self.pool.imap_unordered(_baseline_preprocess, jobs,
-                                                chunksize=4):
-            pending.append((i, imgs))
+        for i, sparse in self.pool.imap_unordered(_baseline_preprocess, jobs,
+                                                  chunksize=4):
+            pending.append((i, _densify(sparse)))
             if len(pending) >= batch_windows:
                 flush()
             n_done += 1
