@@ -7,6 +7,13 @@ held-out segments gives a lower bound on I(features; identity):
 
     I >= log(N) - CE_heldout        (nats; uniform prior over N children)
 
+The bound uses the EMPIRICAL entropy of the identity marginal, not
+log N: children contribute unequal segment counts, so H(Y) < log N, and
+substituting log N would inflate the bound (it would no longer be a
+lower bound). The chance floor reported is the majority-class rate, not
+1/N, for the same reason. This corrects an error in the first version
+of this script, found in review.
+
 The probe split is by segment within child (identity must appear on both
 sides, so a subject-level split is impossible here by construction).
 Reported for the v3 backbone (lambda 0) and each SAPL checkpoint.
@@ -98,11 +105,22 @@ def main():
     ce = -np.mean(np.log(np.clip(p_true, 1e-12, 1)))
     acc = float((probe.predict(scaler.transform(feats[~fit_mask])) == held).mean())
     n = len(children)
-    mi = max(0.0, np.log(n) - ce)
-    print(f"probe accuracy {acc:.4f} (chance {1/n:.4f})")
-    print(f"held-out CE {ce:.4f} nats; log(N) {np.log(n):.4f}")
-    print(f"MI lower bound: {mi:.4f} nats = {mi/np.log(2):.4f} bits "
-          f"(max {np.log(n)/np.log(2):.2f} bits)")
+    # empirical entropy of the held-out identity marginal (valid bound)
+    counts = np.bincount(held, minlength=n).astype(float)
+    p = counts / counts.sum()
+    h_emp = float(-(p[p > 0] * np.log(p[p > 0])).sum())
+    majority = float(p.max())
+    mi = max(0.0, h_emp - ce)
+    mi_naive = max(0.0, np.log(n) - ce)
+    print(f"probe accuracy {acc:.4f} (majority-class floor {majority:.4f}, "
+          f"uniform 1/N {1/n:.4f})")
+    print(f"held-out CE {ce:.4f} nats; H_emp(Y) {h_emp:.4f} nats "
+          f"({h_emp/np.log(2):.2f} bits); log(N) {np.log(n):.4f} "
+          f"(inflation if used: {(np.log(n)-h_emp)/np.log(2):.3f} bits)")
+    print(f"MI lower bound (corrected): {mi:.4f} nats = {mi/np.log(2):.4f} bits "
+          f"(max H_emp {h_emp/np.log(2):.2f} bits)")
+    print(f"[previous, invalid log-N bound would have read: "
+          f"{mi_naive/np.log(2):.4f} bits]")
 
 
 if __name__ == "__main__":

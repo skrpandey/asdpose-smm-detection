@@ -107,7 +107,7 @@ open(f"{OUT}/table_ablation.tex", "w").write("\n".join(lines) + "\n")
 # SAPL tradeoff with per-child stats and MI (MI values from stage2 logs,
 # reproduced by stage2/mi_probe.py; kept as a documented constant map so
 # this script has no GPU dependency)
-MI_BITS = {"0": 1.6697, "0.1": 1.6175, "0.3": 1.4586, "1.0": 0.8633}
+MI_BITS = {"0": 1.3965, "0.1": 1.3444, "0.3": 1.1854, "1.0": 0.5902}  # corrected H_emp(Y)-CE bound
 SAPL = [
     ("0", "results/segment_scores/stage1_detector_v3_test_scores.csv"),
     ("0.1", "results/segment_scores/stage2_sapl_lam0.1_test_scores.csv"),

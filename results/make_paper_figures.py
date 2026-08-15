@@ -75,7 +75,7 @@ LAM_FILES = {
             "results/segment_scores/stage2_sapl_lam0.3_seed2_test_scores.csv"],
     "1.0": ["results/segment_scores/stage2_sapl_lam1.0_test_scores.csv"],
 }
-MI_BITS = {"0": 1.67, "0.1": 1.62, "0.3": 1.46, "1.0": 0.86}
+MI_BITS = {"0": 1.40, "0.1": 1.34, "0.3": 1.19, "1.0": 0.59}  # corrected H_emp(Y)-CE bound
 
 lams = list(LAM_FILES)
 x = np.arange(len(lams))
