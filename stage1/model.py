@@ -123,12 +123,14 @@ class CompactCTRGCN(nn.Module):
         self.blocks = nn.Sequential(*layers)
         self.fc = nn.Linear(prev, num_classes)
 
-    def forward(self, x):                              # (N, C, T, V)
+    def forward_features(self, x):                     # (N, C, T, V) -> (N, D)
         n, c, t, v = x.shape
         y = self.input_bn(x.permute(0, 1, 3, 2).reshape(n, c * v, t))
         x = y.reshape(n, c, v, t).permute(0, 1, 3, 2)
-        x = self.blocks(x)
-        return self.fc(x.mean(dim=(2, 3)))
+        return self.blocks(x).mean(dim=(2, 3))
+
+    def forward(self, x):
+        return self.fc(self.forward_features(x))
 
 
 if __name__ == "__main__":
