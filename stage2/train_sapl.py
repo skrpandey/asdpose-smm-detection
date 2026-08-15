@@ -94,9 +94,11 @@ def main():
     ap.add_argument("--config", default="configs/stage2_sapl.yaml")
     ap.add_argument("--lam", type=float, required=True)
     ap.add_argument("--out-prefix", required=True)
+    ap.add_argument("--seed", type=int, default=None,
+                    help="override config seed (val split stays fixed)")
     args = ap.parse_args()
     cfg = yaml.safe_load(open(args.config))
-    seed = cfg["seed"]
+    seed = args.seed if args.seed is not None else cfg["seed"]
     torch.manual_seed(seed)
     np.random.seed(seed)
 

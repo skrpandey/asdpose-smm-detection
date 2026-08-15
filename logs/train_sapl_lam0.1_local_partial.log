@@ -1,0 +1,2 @@
+train 25218 segments / 232 identities; val 6959; test 4751; lambda 0.1
+epoch   1 task 0.4339 adv 5.2807 adv-acc 0.016 val AUC 0.7888 (1.8 min) *

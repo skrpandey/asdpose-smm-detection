@@ -1,0 +1,54 @@
+train 25218 segments / 232 identities; val 6959; test 4751; lambda 0.1
+epoch   1 task 0.4339 adv 5.2854 adv-acc 0.015 val AUC 0.7885 (1.2 min) *
+epoch   2 task 0.3878 adv 5.2271 adv-acc 0.018 val AUC 0.8092 (2.4 min) *
+epoch   3 task 0.3756 adv 5.2169 adv-acc 0.020 val AUC 0.8248 (3.6 min) *
+epoch   4 task 0.3692 adv 5.2164 adv-acc 0.019 val AUC 0.8229 (4.7 min)
+epoch   5 task 0.3594 adv 5.2071 adv-acc 0.018 val AUC 0.8249 (5.9 min) *
+epoch   6 task 0.3588 adv 5.1981 adv-acc 0.020 val AUC 0.8272 (7.1 min) *
+epoch   7 task 0.3520 adv 5.1955 adv-acc 0.020 val AUC 0.8253 (8.3 min)
+epoch   8 task 0.3450 adv 5.1889 adv-acc 0.020 val AUC 0.8371 (9.5 min) *
+epoch   9 task 0.3373 adv 5.1824 adv-acc 0.020 val AUC 0.8529 (10.7 min) *
+epoch  10 task 0.3152 adv 5.1802 adv-acc 0.019 val AUC 0.7887 (11.8 min)
+epoch  11 task 0.2919 adv 5.1759 adv-acc 0.019 val AUC 0.8730 (13.0 min) *
+epoch  12 task 0.2725 adv 5.1628 adv-acc 0.021 val AUC 0.8830 (14.2 min) *
+epoch  13 task 0.2502 adv 5.1946 adv-acc 0.019 val AUC 0.9106 (15.4 min) *
+epoch  14 task 0.2355 adv 5.1805 adv-acc 0.023 val AUC 0.9165 (16.6 min) *
+epoch  15 task 0.2218 adv 5.1882 adv-acc 0.022 val AUC 0.9234 (17.8 min) *
+epoch  16 task 0.2125 adv 5.1847 adv-acc 0.023 val AUC 0.9155 (18.9 min)
+epoch  17 task 0.1997 adv 5.1830 adv-acc 0.023 val AUC 0.9270 (20.1 min) *
+epoch  18 task 0.1921 adv 5.1830 adv-acc 0.023 val AUC 0.9338 (21.3 min) *
+epoch  19 task 0.1849 adv 5.1880 adv-acc 0.023 val AUC 0.9380 (22.5 min) *
+epoch  20 task 0.1760 adv 5.1804 adv-acc 0.022 val AUC 0.9297 (23.7 min)
+epoch  21 task 0.1728 adv 5.1759 adv-acc 0.023 val AUC 0.9329 (24.9 min)
+epoch  22 task 0.1658 adv 5.1858 adv-acc 0.023 val AUC 0.9420 (26.0 min) *
+epoch  23 task 0.1630 adv 5.1838 adv-acc 0.022 val AUC 0.9380 (27.2 min)
+epoch  24 task 0.1506 adv 5.1766 adv-acc 0.023 val AUC 0.9400 (28.4 min)
+epoch  25 task 0.1521 adv 5.1794 adv-acc 0.023 val AUC 0.9406 (29.6 min)
+epoch  26 task 0.1480 adv 5.1741 adv-acc 0.023 val AUC 0.9436 (30.8 min) *
+epoch  27 task 0.1393 adv 5.1792 adv-acc 0.024 val AUC 0.9436 (32.0 min) *
+epoch  28 task 0.1329 adv 5.1773 adv-acc 0.023 val AUC 0.9379 (33.1 min)
+epoch  29 task 0.1314 adv 5.1795 adv-acc 0.023 val AUC 0.9444 (34.3 min) *
+epoch  30 task 0.1253 adv 5.1746 adv-acc 0.024 val AUC 0.9420 (35.5 min)
+epoch  31 task 0.1232 adv 5.1780 adv-acc 0.024 val AUC 0.9454 (36.7 min) *
+epoch  32 task 0.1183 adv 5.1753 adv-acc 0.025 val AUC 0.9448 (37.9 min)
+epoch  33 task 0.1140 adv 5.1766 adv-acc 0.024 val AUC 0.9468 (39.1 min) *
+epoch  34 task 0.1135 adv 5.1748 adv-acc 0.023 val AUC 0.9441 (40.2 min)
+epoch  35 task 0.1054 adv 5.1786 adv-acc 0.025 val AUC 0.9468 (41.4 min) *
+epoch  36 task 0.1078 adv 5.1783 adv-acc 0.024 val AUC 0.9418 (42.6 min)
+epoch  37 task 0.1006 adv 5.1774 adv-acc 0.025 val AUC 0.9402 (43.8 min)
+epoch  38 task 0.0993 adv 5.1792 adv-acc 0.025 val AUC 0.9446 (45.0 min)
+epoch  39 task 0.0940 adv 5.1792 adv-acc 0.025 val AUC 0.9425 (46.2 min)
+epoch  40 task 0.0944 adv 5.1743 adv-acc 0.025 val AUC 0.9485 (47.3 min) *
+epoch  41 task 0.0923 adv 5.1777 adv-acc 0.025 val AUC 0.9458 (48.5 min)
+epoch  42 task 0.0887 adv 5.1785 adv-acc 0.024 val AUC 0.9447 (49.7 min)
+epoch  43 task 0.0893 adv 5.1800 adv-acc 0.025 val AUC 0.9493 (50.9 min) *
+epoch  44 task 0.0870 adv 5.1780 adv-acc 0.024 val AUC 0.9454 (52.1 min)
+epoch  45 task 0.0865 adv 5.1803 adv-acc 0.024 val AUC 0.9444 (53.2 min)
+epoch  46 task 0.0829 adv 5.1830 adv-acc 0.024 val AUC 0.9436 (54.4 min)
+epoch  47 task 0.0859 adv 5.1822 adv-acc 0.024 val AUC 0.9454 (55.6 min)
+epoch  48 task 0.0861 adv 5.1836 adv-acc 0.024 val AUC 0.9443 (56.8 min)
+epoch  49 task 0.0853 adv 5.1824 adv-acc 0.024 val AUC 0.9457 (58.0 min)
+epoch  50 task 0.0820 adv 5.1821 adv-acc 0.023 val AUC 0.9442 (59.2 min)
+
+lambda 0.1: best val AUC 0.9493; test AUC 0.9512
+saved cache/stage2_sapl_lam0.1.pt and test scores
