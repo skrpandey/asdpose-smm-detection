@@ -123,19 +123,25 @@ for lam, path in SAPL:
     a = per_child(sc)
     lines.append(f"{lam} & {f(res['standard']['auc'])} & {f(a.mean())} & "
                  f"{f(a.min())} & {f(a.max() - a.min())} & {f(MI_BITS[lam], 2)} \\\\")
-# lambda 0.3 seed spread
-st3, w3, g3 = [], [], []
-for p in ["results/segment_scores/stage2_sapl_lam0.3_test_scores.csv",
-          "results/segment_scores/stage2_sapl_lam0.3_seed1_test_scores.csv",
-          "results/segment_scores/stage2_sapl_lam0.3_seed2_test_scores.csv"]:
-    sc, s = scores_of(p)
-    st3.append(evaluate(s, rows)["standard"]["auc"])
-    a = per_child(sc)
-    w3.append(a.min())
-    g3.append(a.max() - a.min())
+# matched three-seed families at lambda 0 and 0.3
 lines.append(r"\midrule")
-lines.append(f"0.3, 3 seeds & {f(np.mean(st3))} $\\pm$ {f(np.std(st3))} & & "
-             f"{f(np.mean(w3))} $\\pm$ {f(np.std(w3))} & {f(np.mean(g3))} $\\pm$ {f(np.std(g3))} & \\\\")
+for fam, paths in [
+    ("0, 3 seeds", ["results/segment_scores/stage2_sapl_lam0_seed0_test_scores.csv",
+                    "results/segment_scores/stage2_sapl_lam0_seed1_test_scores.csv",
+                    "results/segment_scores/stage2_sapl_lam0_seed2_test_scores.csv"]),
+    ("0.3, 3 seeds", ["results/segment_scores/stage2_sapl_lam0.3_test_scores.csv",
+                      "results/segment_scores/stage2_sapl_lam0.3_seed1_test_scores.csv",
+                      "results/segment_scores/stage2_sapl_lam0.3_seed2_test_scores.csv"])]:
+    st3, pm3, w3, g3 = [], [], [], []
+    for p in paths:
+        sc, s = scores_of(p)
+        st3.append(evaluate(s, rows)["standard"]["auc"])
+        a = per_child(sc)
+        pm3.append(a.mean()); w3.append(a.min()); g3.append(a.max() - a.min())
+    lines.append(f"{fam} & {f(np.mean(st3))} $\\pm$ {f(np.std(st3))} & "
+                 f"{f(np.mean(pm3))} $\\pm$ {f(np.std(pm3))} & "
+                 f"{f(np.mean(w3))} $\\pm$ {f(np.std(w3))} & "
+                 f"{f(np.mean(g3))} $\\pm$ {f(np.std(g3))} & \\\\")
 lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_sapl.tex", "w").write("\n".join(lines) + "\n")
 

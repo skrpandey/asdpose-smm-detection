@@ -68,7 +68,9 @@ def per_child_aucs(sc):
 
 # ------------------------------------------------------------- figure 1
 LAM_FILES = {
-    "0": ["results/segment_scores/stage1_detector_v3_test_scores.csv"],
+    "0": ["results/segment_scores/stage2_sapl_lam0_seed0_test_scores.csv",
+          "results/segment_scores/stage2_sapl_lam0_seed1_test_scores.csv",
+          "results/segment_scores/stage2_sapl_lam0_seed2_test_scores.csv"],
     "0.1": ["results/segment_scores/stage2_sapl_lam0.1_test_scores.csv"],
     "0.3": ["results/segment_scores/stage2_sapl_lam0.3_test_scores.csv",
             "results/segment_scores/stage2_sapl_lam0.3_seed1_test_scores.csv",
