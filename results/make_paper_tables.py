@@ -185,3 +185,30 @@ for cam in cams:
 lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_camera.tex", "w").write("\n".join(lines) + "\n")
 print("wrote table_camera.tex")
+
+# ---------------------------------------------------------------- table 5
+# architecture breadth: 3 architectures x 2 recipe arms
+BREADTH = [
+    ("ST-GCN", "3.1M", "base", "results/segment_scores/wacv_stgcn_base_test_scores.csv"),
+    ("ST-GCN", "3.1M", "remedies", "results/segment_scores/wacv_stgcn_remedies_test_scores.csv"),
+    ("AGCN", "3.4M", "base", "results/segment_scores/wacv_agcn_base_test_scores.csv"),
+    ("AGCN", "3.4M", "remedies", "results/segment_scores/wacv_agcn_remedies_test_scores.csv"),
+    ("CompactCTRGCN (ours)", "353K", "base", "results/segment_scores/wacv_ours_base_test_scores.csv"),
+    ("CompactCTRGCN (ours)", "353K", "remedies", "results/segment_scores/stage2_sapl_lam0_seed0_test_scores.csv"),
+]
+lines = [r"\begin{tabular}{llcccc}", r"\toprule",
+         r"architecture & params & arm & standard AUC & hard-negative AUC & $\Delta$ \\",
+         r"\midrule"]
+prev = None
+for arch, par, arm, path in BREADTH:
+    if prev and prev != arch:
+        lines.append(r"\midrule")
+    prev = arch
+    res = evaluate(scores_of(path)[1], rows)
+    st, hn = res["standard"]["auc"], res["hard_negative"]["auc"]
+    name = arch if arm == "base" else ""
+    p = par if arm == "base" else ""
+    lines.append(f"{name} & {p} & {arm} & {f(st)} & {f(hn)} & {f(hn-st)} \\\\")
+lines += [r"\bottomrule", r"\end{tabular}"]
+open(f"{OUT}/table_breadth.tex", "w").write("\n".join(lines) + "\n")
+print("wrote table_breadth.tex")

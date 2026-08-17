@@ -149,3 +149,36 @@ fig.savefig(f"{OUT}/fig_per_child.png", dpi=200)
 plt.close(fig)
 
 print("wrote", sorted(os.listdir(OUT)))
+
+# ------------------------------------------------------------- figure 3
+# confound illustration: per-joint tracking rasters for two segments
+sys.path.insert(0, "stage1")
+from dataset import SegmentDataset
+ds = SegmentDataset(rows, train=False)
+te = [r for r in rows if r["split"] == "test"]
+smm = [r for r in te if r["binary_label"] == 1 and 250 <= r["n_frames"] <= 400]
+non = [r for r in te if r["binary_label"] == 0 and 250 <= r["n_frames"] <= 400]
+smm_ex = min(smm, key=lambda r: abs(r["q_lowconf"] - 0.25))
+non_ex = min(non, key=lambda r: abs(r["q_lowconf"] - 0.55))
+
+fig_, axes = plt.subplots(1, 2, figsize=(6.4, 2.6), sharey=True)
+for ax, r, title in [(axes[0], smm_ex, "SMM segment"),
+                     (axes[1], non_ex, "non-SMM segment")]:
+    arr = ds.load_segment(r)
+    tracked = (arr[..., 2] >= 0.3).T          # (17, T)
+    fps = 25.0
+    ax.imshow(tracked, aspect="auto", cmap=matplotlib.colors.ListedColormap(["#e9e8e4", BLUE]),
+              interpolation="nearest",
+              extent=[0, tracked.shape[1] / fps, 16.5, -0.5])
+    cov = tracked.mean()
+    ax.set_title(f"{title} ({cov:.0%} joint-frames tracked)", fontsize=8.5)
+    ax.set_xlabel("time (s)")
+    for yline in (4.5, 10.5):
+        ax.axhline(yline, color="#ffffff", linewidth=1.2)
+axes[0].set_ylabel("joint")
+axes[0].set_yticks([2, 7.5, 13.5], ["head", "arms", "legs"], fontsize=8)
+fig_.tight_layout()
+fig_.savefig(f"{OUT}/fig_confound.pdf")
+fig_.savefig(f"{OUT}/fig_confound.png", dpi=200)
+plt.close(fig_)
+print("wrote fig_confound")
