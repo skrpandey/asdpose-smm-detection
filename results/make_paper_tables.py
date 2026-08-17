@@ -52,7 +52,10 @@ MODELS = [
     ("quality-only logistic regression", None, "5"),
     ("released PoseConv3D checkpoint", "results/segment_scores/gate03_segment_scores.csv", "3.0M"),
     ("ours, coordinates only (v1)", "results/segment_scores/stage1_detector_test_scores.csv", "353K"),
-    ("ours, full recipe (v3)", "results/segment_scores/stage1_detector_v3_test_scores.csv", "353K"),
+    ("ours, full recipe (v3, 3 seeds)",
+     ["results/segment_scores/stage2_sapl_lam0_seed0_test_scores.csv",
+      "results/segment_scores/stage2_sapl_lam0_seed1_test_scores.csv",
+      "results/segment_scores/stage2_sapl_lam0_seed2_test_scores.csv"], "353K"),
 ]
 # quality-LR is refit here exactly as in stage1/eval_baselines.py
 from sklearn.linear_model import LogisticRegression
@@ -70,6 +73,16 @@ lines = [
     r"\midrule",
 ]
 for name, path, params in MODELS:
+    if isinstance(path, list):
+        sts, hns = [], []
+        for p in path:
+            res = evaluate(scores_of(p)[1], rows)
+            sts.append(res["standard"]["auc"])
+            hns.append(res["hard_negative"]["auc"])
+        lines.append(f"{name} & {params} & {f(np.mean(sts))} $\\pm$ {f(np.std(sts))} & "
+                     f"{f(np.mean(hns))} $\\pm$ {f(np.std(hns))} & "
+                     f"{f(np.mean(hns) - np.mean(sts))} \\\\")
+        continue
     s = qlr_scores if path is None else scores_of(path)[1]
     res = evaluate(s, rows)
     st, hn = res["standard"]["auc"], res["hard_negative"]["auc"]
@@ -146,3 +159,29 @@ lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_sapl.tex", "w").write("\n".join(lines) + "\n")
 
 print("wrote", os.listdir(OUT))
+
+# ---------------------------------------------------------------- table 4
+# per-camera AUC and tracking quality (camera = third identifier token)
+def camera_of(r):
+    return int(r["identifier"].split("_")[2])
+
+CAM_MODELS = [("checkpoint", "results/segment_scores/gate03_segment_scores.csv"),
+              ("ours (v3)", "results/segment_scores/stage2_sapl_lam0_seed0_test_scores.csv")]
+cams = sorted({camera_of(r) for r in test_rows})
+lines = [r"\begin{tabular}{lcccc}", r"\toprule",
+         r"camera & segments (SMM/non) & mean low-conf & checkpoint AUC & ours AUC \\",
+         r"\midrule"]
+scs = {n: scores_of(p)[0] for n, p in CAM_MODELS}
+for cam in cams:
+    rs = [r for r in test_rows if camera_of(r) == cam]
+    labels = np.array([r["binary_label"] for r in rs])
+    q = np.mean([r["q_lowconf"] for r in rs])
+    aucs = []
+    for n, _ in CAM_MODELS:
+        s = np.array([scs[n][r["identifier"]] for r in rs])
+        aucs.append(auc(s, labels))
+    lines.append(f"{cam} & {int((labels==1).sum())}/{int((labels==0).sum())} & "
+                 f"{q:.2f} & {f(aucs[0])} & {f(aucs[1])} \\\\")
+lines += [r"\bottomrule", r"\end{tabular}"]
+open(f"{OUT}/table_camera.tex", "w").write("\n".join(lines) + "\n")
+print("wrote table_camera.tex")

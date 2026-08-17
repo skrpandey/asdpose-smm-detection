@@ -1,0 +1,23 @@
+# WACV architecture-breadth arm: stgcn / base. Identical recipe to v3
+# except the two remedies, which define the arms. Frames, not seconds.
+model:
+  widths: [48, 96, 136]     # used by compact_ctrgcn only
+  blocks_per_stage: 2
+  c_in: 3
+data:
+  cache_dir: cache/segments
+  window: 200
+  val_child_fraction: 0.2
+  normalize_mode: image
+  velocity: false
+train:
+  epochs: 50
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.0001
+  optimizer: adamw
+  schedule: cosine
+  balanced_sampling: false
+  flip_prob: 0.5
+  joint_dropout: 0.0
+seed: 0

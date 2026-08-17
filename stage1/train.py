@@ -51,6 +51,8 @@ def main():
     ap.add_argument("--out-prefix", default="cache/stage1_detector")
     ap.add_argument("--seed", type=int, default=None,
                     help="override config seed (for seed-spread runs)")
+    ap.add_argument("--arch", default="compact_ctrgcn",
+                    choices=["compact_ctrgcn", "stgcn", "agcn"])
     args = ap.parse_args()
     cfg = yaml.safe_load(open(args.config))
     seed = args.seed if args.seed is not None else cfg["seed"]
@@ -73,9 +75,14 @@ def main():
         print("permutation control: train labels shuffled", flush=True)
 
     device = "cuda"
-    model = CompactCTRGCN(c_in=cfg["model"]["c_in"],
-                          widths=tuple(cfg["model"]["widths"]),
-                          blocks_per_stage=cfg["model"]["blocks_per_stage"]).to(device)
+    if args.arch == "compact_ctrgcn":
+        model = CompactCTRGCN(c_in=cfg["model"]["c_in"],
+                              widths=tuple(cfg["model"]["widths"]),
+                              blocks_per_stage=cfg["model"]["blocks_per_stage"])
+    else:
+        from baseline_archs import STGCN, AGCN
+        model = {"stgcn": STGCN, "agcn": AGCN}[args.arch](c_in=cfg["model"]["c_in"])
+    model = model.to(device)
     n_params = sum(p.numel() for p in model.parameters())
     print(f"params: {n_params/1e3:.1f}K", flush=True)
 
