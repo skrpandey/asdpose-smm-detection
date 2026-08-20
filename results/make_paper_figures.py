@@ -122,7 +122,12 @@ plt.close(fig)
 
 # ------------------------------------------------------------- figure 2
 ckpt = per_child_aucs(scores_of("results/segment_scores/gate03_segment_scores.csv"))
-ours = per_child_aucs(scores_of("results/segment_scores/stage1_detector_v3_test_scores.csv"))
+# The headline detector is the matched lambda=0 three-seed family, so the
+# per-child curve averages the three seeds. Plotting one run would show a
+# worst-child value that the seed lottery moves by about 0.035, which is the
+# reading error this paper documents in Section 4.6.
+_ours_seeds = [per_child_aucs(scores_of(p)) for p in LAM_FILES["0"]]
+ours = {c: float(np.mean([s[c] for s in _ours_seeds])) for c in _ours_seeds[0]}
 children = sorted(ours, key=lambda c: ours[c])
 y = np.arange(len(children))
 
