@@ -69,7 +69,7 @@ qlr_scores = clf.predict_proba(scaler.transform(X))[:, 1]
 
 lines = [
     r"\begin{tabular}{lrccc}", r"\toprule",
-    r"model & params & standard AUC & hard-negative AUC & $\Delta$ \\",
+    r"model & params & standard AUC & QC AUC & $\Delta$ \\",
     r"\midrule",
 ]
 for name, path, params in MODELS:
@@ -81,12 +81,12 @@ for name, path, params in MODELS:
             hns.append(res["hard_negative"]["auc"])
         lines.append(f"{name} & {params} & {f(np.mean(sts))} $\\pm$ {f(np.std(sts))} & "
                      f"{f(np.mean(hns))} $\\pm$ {f(np.std(hns))} & "
-                     f"{f(np.mean(hns) - np.mean(sts))} \\\\")
+                     f"{f(np.mean(sts) - np.mean(hns))} \\\\")
         continue
     s = qlr_scores if path is None else scores_of(path)[1]
     res = evaluate(s, rows)
     st, hn = res["standard"]["auc"], res["hard_negative"]["auc"]
-    lines.append(f"{name} & {params} & {f(st)} & {f(hn)} & {f(hn - st)} \\\\")
+    lines.append(f"{name} & {params} & {f(st)} & {f(hn)} & {f(st - hn)} \\\\")
 lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_main.tex", "w").write("\n".join(lines) + "\n")
 
@@ -99,7 +99,7 @@ ABL = [
     ("both (v2)", "results/segment_scores/stage1_detector_v2_test_scores.csv"),
 ]
 lines = [r"\begin{tabular}{lcc}", r"\toprule",
-         r"variant & standard AUC & hard-negative AUC \\", r"\midrule"]
+         r"variant & standard AUC & QC AUC \\", r"\midrule"]
 for name, path in ABL:
     res = evaluate(scores_of(path)[1], rows)
     lines.append(f"{name} & {f(res['standard']['auc'])} & {f(res['hard_negative']['auc'])} \\\\")
@@ -111,7 +111,7 @@ for p in ["results/segment_scores/stage1_detector_v2_test_scores.csv",
     v2_st.append(res["standard"]["auc"])
     v2_hn.append(res["hard_negative"]["auc"])
 lines.append(r"\midrule")
-lines.append(f"both, 3 seeds & {f(np.mean(v2_st))} $\\pm$ {f(np.std(v2_st))} "
+lines.append(f"both (v2), 3 seeds & {f(np.mean(v2_st))} $\\pm$ {f(np.std(v2_st))} "
              f"& {f(np.mean(v2_hn))} $\\pm$ {f(np.std(v2_hn))} \\\\")
 lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_ablation.tex", "w").write("\n".join(lines) + "\n")
@@ -197,7 +197,7 @@ BREADTH = [
     ("CompactCTRGCN (ours)", "353K", "remedies", "results/segment_scores/stage2_sapl_lam0_seed0_test_scores.csv"),
 ]
 lines = [r"\begin{tabular}{llcccc}", r"\toprule",
-         r"architecture & params & arm & standard AUC & hard-negative AUC & $\Delta$ \\",
+         r"architecture & params & arm & standard AUC & QC AUC & $\Delta$ \\",
          r"\midrule"]
 prev = None
 for arch, par, arm, path in BREADTH:
@@ -208,7 +208,7 @@ for arch, par, arm, path in BREADTH:
     st, hn = res["standard"]["auc"], res["hard_negative"]["auc"]
     name = arch if arm == "base" else ""
     p = par if arm == "base" else ""
-    lines.append(f"{name} & {p} & {arm} & {f(st)} & {f(hn)} & {f(hn-st)} \\\\")
+    lines.append(f"{name} & {p} & {arm} & {f(st)} & {f(hn)} & {f(st-hn)} \\\\")
 lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_breadth.tex", "w").write("\n".join(lines) + "\n")
 print("wrote table_breadth.tex")

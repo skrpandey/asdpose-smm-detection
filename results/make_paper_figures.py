@@ -106,12 +106,16 @@ ax1.legend(frameon=False, loc="lower left", fontsize=8)
 ax2.grid(axis="y", color=GRID, linewidth=0.6)
 ax2.set_axisbelow(True)
 mi = [MI_BITS[l] for l in lams]
+ax2.axhline(7.58, color=MUTED, linewidth=1.0, linestyle=(0, (4, 3)))
+ax2.annotate("empirical identity entropy (7.58 bits)", (-0.06, 7.58),
+             textcoords="offset points", xytext=(0, -11), fontsize=7.5,
+             color=MUTED)
 ax2.plot(x, mi, color=BLUE, linewidth=1.8, marker="o", markersize=6)
 for xi, yi in zip(x, mi):
     ax2.annotate(f"{yi:.2f}", (xi, yi), textcoords="offset points",
                  xytext=(0, 6), ha="center", fontsize=7.5, color=MUTED)
 ax2.set_ylabel("identity MI (bits)")
-ax2.set_ylim(0.5, 2.1)
+ax2.set_ylim(0, 8.4)
 ax2.set_xlabel(r"adversary strength $\lambda$")
 ax2.set_xticks(x, lams)
 
