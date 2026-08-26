@@ -1,0 +1,29 @@
+# W3c: joint-dropout-only ablation arm rerun with the v3 normalization
+# and sampling held fixed (image-height scaling, natural class prior).
+# Companion to configs/stage1_abl_velocity_v3norm.yaml. All temporal
+# quantities in FRAMES.
+
+model:
+  widths: [48, 96, 136]
+  blocks_per_stage: 2
+  c_in: 3                   # x, y, confidence (no velocity)
+
+data:
+  cache_dir: cache/segments
+  window: 200
+  val_child_fraction: 0.2
+  normalize_mode: image
+  velocity: false
+
+train:
+  epochs: 50
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.0001
+  optimizer: adamw
+  schedule: cosine
+  balanced_sampling: false
+  flip_prob: 0.5
+  joint_dropout: 0.15
+
+seed: 0

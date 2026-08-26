@@ -1,0 +1,31 @@
+# W3c: velocity-only ablation arm rerun with the v3 normalization and
+# sampling held fixed (image-height scaling, natural class prior), so the
+# 2x2 remedy ablation is read at one set of factor levels. The original
+# ablation arms (configs/stage1_ablation_velocity.yaml) used v1's
+# per-window scaling and balanced sampling. All temporal quantities in
+# FRAMES.
+
+model:
+  widths: [48, 96, 136]
+  blocks_per_stage: 2
+  c_in: 5                   # x, y, dx, dy, confidence
+
+data:
+  cache_dir: cache/segments
+  window: 200
+  val_child_fraction: 0.2
+  normalize_mode: image
+  velocity: true
+
+train:
+  epochs: 50
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.0001
+  optimizer: adamw
+  schedule: cosine
+  balanced_sampling: false
+  flip_prob: 0.5
+  joint_dropout: 0.0
+
+seed: 0

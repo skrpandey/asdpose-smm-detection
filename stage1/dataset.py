@@ -23,7 +23,7 @@ for l, r in zip(LEFT_KP, RIGHT_KP):
 class SegmentDataset(Dataset):
     def __init__(self, rows, cache_dir="cache/segments", window=200,
                  train=False, flip_prob=0.5, seed=0, joint_dropout=0.0,
-                 velocity=False, normalize="window-std"):
+                 velocity=False, normalize="window-std", confidence=True):
         self.rows = rows
         self.mm = np.memmap(f"{cache_dir}/keypoints.f32", dtype=np.float32,
                             mode="r")
@@ -34,6 +34,7 @@ class SegmentDataset(Dataset):
         self.velocity = velocity
         assert normalize in ("window-std", "image")
         self.normalize = normalize
+        self.confidence = confidence
         self.rng = np.random.RandomState(seed)
 
     def __len__(self):
@@ -79,11 +80,13 @@ class SegmentDataset(Dataset):
             score = score.copy()
             score[:, drop] = 0.0
 
-        chans = [xy, score[..., None]]
+        chans = [xy]
         if self.velocity:
             v = np.diff(xy, axis=0, prepend=xy[:1])       # (w,17,2)
-            chans.insert(1, v)
-        out = np.concatenate(chans, axis=2)               # (w,17,3 or 5)
+            chans.append(v)
+        if self.confidence:
+            chans.append(score[..., None])
+        out = np.concatenate(chans, axis=2)               # (w,17,2..5)
         x = torch.from_numpy(np.ascontiguousarray(out.transpose(2, 0, 1))).float()
         return x, int(r["binary_label"])
 
