@@ -34,6 +34,12 @@ MODELS = [
     ("agcn base", ["results/segment_scores/wacv_agcn_base_test_scores.csv"]),
     ("agcn remedies", ["results/segment_scores/wacv_agcn_remedies_test_scores.csv"]),
     ("ours base", ["results/segment_scores/wacv_ours_base_test_scores.csv"]),
+    ("velocity only (v3 norm)", ["results/segment_scores/stage1_abl_velocity_v3norm_test_scores.csv"]),
+    ("dropout only (v3 norm)", ["results/segment_scores/stage1_abl_dropout_v3norm_test_scores.csv"]),
+    ("v3 no-confidence family",
+     ["results/segment_scores/stage1_v3_noconf_seed0_test_scores.csv",
+      "results/segment_scores/stage1_v3_noconf_seed1_test_scores.csv",
+      "results/segment_scores/stage1_v3_noconf_seed2_test_scores.csv"]),
 ]
 
 

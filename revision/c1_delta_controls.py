@@ -35,11 +35,15 @@ MODELS = [
     ("v3 family", ["results/segment_scores/stage2_sapl_lam0_seed0_test_scores.csv",
                    "results/segment_scores/stage2_sapl_lam0_seed1_test_scores.csv",
                    "results/segment_scores/stage2_sapl_lam0_seed2_test_scores.csv"]),
-    ("stgcn base", ["results/segment_scores/wacv_stgcn_base_test_scores.csv"]),
-    ("stgcn remedies", ["results/segment_scores/wacv_stgcn_remedies_test_scores.csv"]),
-    ("agcn base", ["results/segment_scores/wacv_agcn_base_test_scores.csv"]),
-    ("agcn remedies", ["results/segment_scores/wacv_agcn_remedies_test_scores.csv"]),
+    ("ST-GCN base", ["results/segment_scores/wacv_stgcn_base_test_scores.csv"]),
+    ("ST-GCN remedies", ["results/segment_scores/wacv_stgcn_remedies_test_scores.csv"]),
+    ("AGCN base", ["results/segment_scores/wacv_agcn_base_test_scores.csv"]),
+    ("AGCN remedies", ["results/segment_scores/wacv_agcn_remedies_test_scores.csv"]),
     ("ours base", ["results/segment_scores/wacv_ours_base_test_scores.csv"]),
+    ("v3 no-confidence family",
+     ["results/segment_scores/stage1_v3_noconf_seed0_test_scores.csv",
+      "results/segment_scores/stage1_v3_noconf_seed1_test_scores.csv",
+      "results/segment_scores/stage1_v3_noconf_seed2_test_scores.csv"]),
 ]
 
 
@@ -159,7 +163,7 @@ def main():
     print("\n## C1.3 Threshold sensitivity sweep (frozen values 0.10 / 0.30)\n")
     frozen_grid = [0.05, 0.075, 0.10, 0.125, 0.15]
     arm_grid = [0.25, 0.275, 0.30, 0.325, 0.35]
-    sweep_models = ["checkpoint", "v1", "v3 family", "stgcn remedies", "quality LR"]
+    sweep_models = ["checkpoint", "v1", "v3 family", "ST-GCN remedies", "quality LR"]
     header = "| f_max | a_max | neg kept | " + " | ".join(sweep_models) + " | ranking by QC AUC |"
     print(header)
     print("|" + "---|" * (3 + len(sweep_models) + 1))
