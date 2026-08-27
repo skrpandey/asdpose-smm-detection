@@ -1,0 +1,61 @@
+## C1.1 Paired child-clustered bootstrap CIs for Delta (10000 resamples of 40 children)
+
+| model | Delta | 95% CI |
+|---|---|---|
+| quality LR | 0.211 | [0.179, 0.251] |
+| checkpoint | 0.038 | [0.028, 0.050] |
+| v1 | 0.084 | [0.066, 0.106] |
+| v3 family | 0.012 | [0.007, 0.020] |
+| ST-GCN base | 0.072 | [0.057, 0.091] |
+| ST-GCN remedies | 0.028 | [0.018, 0.039] |
+| AGCN base | 0.153 | [0.127, 0.183] |
+| AGCN remedies | 0.103 | [0.081, 0.130] |
+| ours base | 0.073 | [0.055, 0.095] |
+| v3 no-confidence family | 0.012 | [0.006, 0.021] |
+
+## C1.2 Random-subsample negative control (1000 draws of 1648 of 3694 negatives)
+
+| model | quality-filtered Delta | random-subsample Delta, mean [2.5%, 97.5%] |
+|---|---|---|
+| quality LR | 0.211 | -0.0001 [-0.0104, +0.0095] |
+| checkpoint | 0.038 | +0.0001 [-0.0052, +0.0056] |
+| v1 | 0.084 | +0.0002 [-0.0057, +0.0060] |
+| v3 family | 0.012 | -0.0001 [-0.0019, +0.0016] |
+| ST-GCN base | 0.072 | +0.0001 [-0.0061, +0.0064] |
+| ST-GCN remedies | 0.028 | +0.0001 [-0.0038, +0.0040] |
+| AGCN base | 0.153 | -0.0001 [-0.0089, +0.0089] |
+| AGCN remedies | 0.103 | +0.0001 [-0.0071, +0.0071] |
+| ours base | 0.073 | +0.0001 [-0.0055, +0.0056] |
+| v3 no-confidence family | 0.012 | -0.0000 [-0.0018, +0.0017] |
+
+## C1.3 Threshold sensitivity sweep (frozen values 0.10 / 0.30)
+
+| f_max | a_max | neg kept | checkpoint | v1 | v3 family | ST-GCN remedies | quality LR | ranking by QC AUC |
+|---|---|---|---|---|---|---|---|---|
+| 0.05 | 0.25 | 1398 | 0.045 | 0.093 | 0.013 | 0.026 | 0.230 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.05 | 0.275 | 1512 | 0.041 | 0.089 | 0.013 | 0.027 | 0.220 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.05 | 0.3 | 1595 | 0.038 | 0.086 | 0.012 | 0.028 | 0.212 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.05 | 0.325 | 1695 | 0.037 | 0.082 | 0.011 | 0.027 | 0.202 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.05 | 0.35 | 1804 | 0.035 | 0.077 | 0.011 | 0.026 | 0.192 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.075 | 0.25 | 1423 | 0.045 | 0.092 | 0.013 | 0.027 | 0.230 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.075 | 0.275 | 1541 | 0.041 | 0.088 | 0.013 | 0.028 | 0.220 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.075 | 0.3 | 1627 | 0.038 | 0.085 | 0.012 | 0.028 | 0.212 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.075 | 0.325 | 1732 | 0.037 | 0.082 | 0.012 | 0.027 | 0.202 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.075 | 0.35 | 1845 | 0.035 | 0.077 | 0.011 | 0.026 | 0.191 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.1 | 0.25 | 1440 | 0.044 | 0.091 | 0.013 | 0.027 | 0.230 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.1 | 0.275 | 1561 | 0.041 | 0.086 | 0.013 | 0.028 | 0.220 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.1 | 0.3 | 1648 | 0.038 | 0.084 | 0.012 | 0.028 | 0.211 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.1 | 0.325 | 1757 | 0.037 | 0.080 | 0.012 | 0.027 | 0.202 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.1 | 0.35 | 1874 | 0.035 | 0.076 | 0.011 | 0.026 | 0.191 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.125 | 0.25 | 1452 | 0.043 | 0.091 | 0.013 | 0.026 | 0.229 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.125 | 0.275 | 1576 | 0.040 | 0.086 | 0.013 | 0.027 | 0.218 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.125 | 0.3 | 1668 | 0.037 | 0.084 | 0.012 | 0.027 | 0.210 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.125 | 0.325 | 1780 | 0.036 | 0.080 | 0.011 | 0.026 | 0.200 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.125 | 0.35 | 1900 | 0.035 | 0.075 | 0.011 | 0.025 | 0.190 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.15 | 0.25 | 1464 | 0.044 | 0.091 | 0.013 | 0.026 | 0.226 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.15 | 0.275 | 1594 | 0.040 | 0.086 | 0.013 | 0.027 | 0.216 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.15 | 0.3 | 1689 | 0.037 | 0.084 | 0.012 | 0.027 | 0.207 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.15 | 0.325 | 1802 | 0.036 | 0.080 | 0.012 | 0.026 | 0.198 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+| 0.15 | 0.35 | 1925 | 0.035 | 0.076 | 0.011 | 0.025 | 0.188 | v3 family > ST-GCN remedies > checkpoint > v1 > quality LR |
+
+wrote results/figures/fig_threshold_sweep.{pdf,png}

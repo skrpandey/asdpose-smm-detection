@@ -173,7 +173,7 @@ non = [r for r in te if r["binary_label"] == 0 and 250 <= r["n_frames"] <= 400]
 smm_ex = min(smm, key=lambda r: abs(r["q_lowconf"] - 0.25))
 non_ex = min(non, key=lambda r: abs(r["q_lowconf"] - 0.55))
 
-fig_, axes = plt.subplots(1, 2, figsize=(6.4, 2.6), sharey=True)
+fig_, axes = plt.subplots(1, 2, figsize=(4.8, 2.1), sharey=True)
 for ax, r, title in [(axes[0], smm_ex, "SMM segment"),
                      (axes[1], non_ex, "non-SMM segment")]:
     arr = ds.load_segment(r)
@@ -183,12 +183,13 @@ for ax, r, title in [(axes[0], smm_ex, "SMM segment"),
               interpolation="nearest",
               extent=[0, tracked.shape[1] / fps, 16.5, -0.5])
     cov = tracked.mean()
-    ax.set_title(f"{title} ({cov:.0%} joint-frames tracked)", fontsize=8.5)
-    ax.set_xlabel("time (s)")
+    ax.set_title(f"{title}\n({cov:.0%} joint-frames tracked)", fontsize=10)
+    ax.set_xlabel("time (s)", fontsize=10)
+    ax.tick_params(labelsize=9)
     for yline in (4.5, 10.5):
         ax.axhline(yline, color="#ffffff", linewidth=1.2)
-axes[0].set_ylabel("joint")
-axes[0].set_yticks([2, 7.5, 13.5], ["head", "arms", "legs"], fontsize=8)
+axes[0].set_ylabel("joint", fontsize=10)
+axes[0].set_yticks([2, 7.5, 13.5], ["head", "arms", "legs"], fontsize=10)
 fig_.tight_layout()
 fig_.savefig(f"{OUT}/fig_confound.pdf")
 fig_.savefig(f"{OUT}/fig_confound.png", dpi=200)

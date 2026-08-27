@@ -1,0 +1,391 @@
+=== 2026-08-26 12:11:04 starting: python stage1/train.py --config configs/stage1_v3_noconf.yaml --seed 0 --out-prefix cache/stage1_v3_noconf_seed0
+train 25218 / val 6959 (57 children) / test 4751
+params: 353.1K
+epoch   1 loss 0.4292 val AUC 0.7899 (1.8 min) *
+epoch   2 loss 0.3841 val AUC 0.7897 (3.7 min)
+epoch   3 loss 0.3753 val AUC 0.8087 (5.5 min) *
+epoch   4 loss 0.3639 val AUC 0.8210 (7.4 min) *
+epoch   5 loss 0.3270 val AUC 0.8728 (9.2 min) *
+epoch   6 loss 0.2832 val AUC 0.8919 (11.1 min) *
+epoch   7 loss 0.2598 val AUC 0.9053 (13.0 min) *
+epoch   8 loss 0.2452 val AUC 0.9066 (14.8 min) *
+epoch   9 loss 0.2316 val AUC 0.9194 (16.7 min) *
+epoch  10 loss 0.2235 val AUC 0.9061 (18.5 min)
+epoch  11 loss 0.2107 val AUC 0.9226 (20.4 min) *
+epoch  12 loss 0.2049 val AUC 0.9176 (22.3 min)
+epoch  13 loss 0.1932 val AUC 0.9274 (24.1 min) *
+epoch  14 loss 0.1892 val AUC 0.9197 (26.0 min)
+epoch  15 loss 0.1845 val AUC 0.9247 (27.9 min)
+epoch  16 loss 0.1785 val AUC 0.9278 (29.7 min) *
+epoch  17 loss 0.1710 val AUC 0.9313 (31.6 min) *
+epoch  18 loss 0.1652 val AUC 0.9318 (33.5 min) *
+epoch  19 loss 0.1607 val AUC 0.9325 (35.3 min) *
+epoch  20 loss 0.1556 val AUC 0.9366 (37.2 min) *
+epoch  21 loss 0.1506 val AUC 0.9367 (39.0 min) *
+epoch  22 loss 0.1444 val AUC 0.9395 (40.9 min) *
+epoch  23 loss 0.1411 val AUC 0.9358 (42.8 min)
+epoch  24 loss 0.1360 val AUC 0.9431 (44.6 min) *
+epoch  25 loss 0.1353 val AUC 0.9441 (46.5 min) *
+epoch  26 loss 0.1281 val AUC 0.9401 (48.3 min)
+epoch  27 loss 0.1263 val AUC 0.9439 (50.2 min)
+epoch  28 loss 0.1212 val AUC 0.9434 (52.1 min)
+epoch  29 loss 0.1160 val AUC 0.9472 (53.9 min) *
+epoch  30 loss 0.1124 val AUC 0.9453 (55.8 min)
+epoch  31 loss 0.1077 val AUC 0.9389 (57.7 min)
+epoch  32 loss 0.1102 val AUC 0.9500 (59.5 min) *
+epoch  33 loss 0.1028 val AUC 0.9475 (61.4 min)
+epoch  34 loss 0.1013 val AUC 0.9484 (63.2 min)
+epoch  35 loss 0.0991 val AUC 0.9403 (65.1 min)
+epoch  36 loss 0.0958 val AUC 0.9447 (67.0 min)
+epoch  37 loss 0.0937 val AUC 0.9474 (68.8 min)
+epoch  38 loss 0.0932 val AUC 0.9472 (70.7 min)
+epoch  39 loss 0.0869 val AUC 0.9479 (72.6 min)
+epoch  40 loss 0.0866 val AUC 0.9468 (74.5 min)
+epoch  41 loss 0.0839 val AUC 0.9475 (76.4 min)
+epoch  42 loss 0.0833 val AUC 0.9478 (78.3 min)
+epoch  43 loss 0.0815 val AUC 0.9492 (80.2 min)
+epoch  44 loss 0.0790 val AUC 0.9481 (82.0 min)
+epoch  45 loss 0.0777 val AUC 0.9467 (83.9 min)
+epoch  46 loss 0.0777 val AUC 0.9479 (85.8 min)
+epoch  47 loss 0.0788 val AUC 0.9477 (87.6 min)
+epoch  48 loss 0.0764 val AUC 0.9480 (89.5 min)
+epoch  49 loss 0.0773 val AUC 0.9479 (91.4 min)
+epoch  50 loss 0.0784 val AUC 0.9474 (93.2 min)
+
+best val AUC 0.9500; test AUC 0.9548
+saved cache/stage1_v3_noconf_seed0.pt and test scores
+=== 2026-08-26 13:44:27 starting: python stage1/train.py --config configs/stage1_v3_noconf.yaml --seed 1 --out-prefix cache/stage1_v3_noconf_seed1
+train 25218 / val 6959 (57 children) / test 4751
+params: 353.1K
+epoch   1 loss 0.4255 val AUC 0.7931 (1.8 min) *
+epoch   2 loss 0.3832 val AUC 0.8005 (3.7 min) *
+epoch   3 loss 0.3731 val AUC 0.8071 (5.5 min) *
+epoch   4 loss 0.3642 val AUC 0.8198 (7.4 min) *
+epoch   5 loss 0.3623 val AUC 0.8223 (9.2 min) *
+epoch   6 loss 0.3522 val AUC 0.8211 (11.1 min)
+epoch   7 loss 0.3415 val AUC 0.8222 (12.9 min)
+epoch   8 loss 0.3142 val AUC 0.8677 (14.8 min) *
+epoch   9 loss 0.2732 val AUC 0.9025 (16.6 min) *
+epoch  10 loss 0.2419 val AUC 0.8962 (18.5 min)
+epoch  11 loss 0.2260 val AUC 0.9117 (20.3 min) *
+epoch  12 loss 0.2091 val AUC 0.9159 (22.1 min) *
+epoch  13 loss 0.2010 val AUC 0.9244 (24.0 min) *
+epoch  14 loss 0.1939 val AUC 0.9249 (25.8 min) *
+epoch  15 loss 0.1824 val AUC 0.9206 (27.6 min)
+epoch  16 loss 0.1791 val AUC 0.9295 (29.5 min) *
+epoch  17 loss 0.1685 val AUC 0.9283 (31.3 min)
+epoch  18 loss 0.1666 val AUC 0.9316 (33.2 min) *
+epoch  19 loss 0.1603 val AUC 0.9350 (35.0 min) *
+epoch  20 loss 0.1554 val AUC 0.9387 (36.9 min) *
+epoch  21 loss 0.1522 val AUC 0.9357 (38.7 min)
+epoch  22 loss 0.1451 val AUC 0.9378 (40.5 min)
+epoch  23 loss 0.1432 val AUC 0.9393 (42.4 min) *
+epoch  24 loss 0.1377 val AUC 0.9358 (44.2 min)
+epoch  25 loss 0.1302 val AUC 0.9427 (46.0 min) *
+epoch  26 loss 0.1257 val AUC 0.9441 (47.9 min) *
+epoch  27 loss 0.1236 val AUC 0.9408 (49.8 min)
+epoch  28 loss 0.1197 val AUC 0.9457 (51.6 min) *
+epoch  29 loss 0.1163 val AUC 0.9448 (53.4 min)
+epoch  30 loss 0.1119 val AUC 0.9439 (55.3 min)
+epoch  31 loss 0.1065 val AUC 0.9414 (57.1 min)
+epoch  32 loss 0.1064 val AUC 0.9476 (59.0 min) *
+epoch  33 loss 0.0999 val AUC 0.9457 (60.8 min)
+epoch  34 loss 0.0976 val AUC 0.9460 (62.6 min)
+epoch  35 loss 0.0954 val AUC 0.9486 (64.5 min) *
+epoch  36 loss 0.0895 val AUC 0.9450 (66.3 min)
+epoch  37 loss 0.0876 val AUC 0.9468 (68.1 min)
+epoch  38 loss 0.0827 val AUC 0.9453 (70.0 min)
+epoch  39 loss 0.0819 val AUC 0.9459 (71.8 min)
+epoch  40 loss 0.0789 val AUC 0.9467 (73.6 min)
+epoch  41 loss 0.0775 val AUC 0.9487 (75.5 min) *
+epoch  42 loss 0.0769 val AUC 0.9485 (77.3 min)
+epoch  43 loss 0.0730 val AUC 0.9461 (79.1 min)
+epoch  44 loss 0.0765 val AUC 0.9479 (81.0 min)
+epoch  45 loss 0.0755 val AUC 0.9493 (82.8 min) *
+epoch  46 loss 0.0722 val AUC 0.9469 (84.6 min)
+epoch  47 loss 0.0734 val AUC 0.9476 (86.5 min)
+epoch  48 loss 0.0704 val AUC 0.9477 (88.3 min)
+epoch  49 loss 0.0715 val AUC 0.9487 (90.2 min)
+epoch  50 loss 0.0721 val AUC 0.9483 (92.0 min)
+
+best val AUC 0.9493; test AUC 0.9561
+saved cache/stage1_v3_noconf_seed1.pt and test scores
+=== 2026-08-26 15:16:37 starting: python stage1/train.py --config configs/stage1_v3_noconf.yaml --seed 2 --out-prefix cache/stage1_v3_noconf_seed2
+train 25218 / val 6959 (57 children) / test 4751
+params: 353.1K
+epoch   1 loss 0.4297 val AUC 0.7972 (1.8 min) *
+epoch   2 loss 0.3889 val AUC 0.7968 (3.7 min)
+epoch   3 loss 0.3788 val AUC 0.8085 (5.5 min) *
+epoch   4 loss 0.3697 val AUC 0.8068 (7.3 min)
+epoch   5 loss 0.3629 val AUC 0.8249 (9.2 min) *
+epoch   6 loss 0.3492 val AUC 0.8300 (11.0 min) *
+epoch   7 loss 0.3194 val AUC 0.8689 (12.9 min) *
+epoch   8 loss 0.2815 val AUC 0.8936 (14.7 min) *
+epoch   9 loss 0.2528 val AUC 0.9021 (16.6 min) *
+epoch  10 loss 0.2362 val AUC 0.9087 (18.4 min) *
+epoch  11 loss 0.2245 val AUC 0.9009 (20.3 min)
+epoch  12 loss 0.2081 val AUC 0.9181 (22.1 min) *
+epoch  13 loss 0.1931 val AUC 0.9268 (24.0 min) *
+epoch  14 loss 0.1871 val AUC 0.9286 (25.8 min) *
+epoch  15 loss 0.1816 val AUC 0.9280 (27.6 min)
+epoch  16 loss 0.1726 val AUC 0.9320 (29.5 min) *
+epoch  17 loss 0.1679 val AUC 0.9295 (31.3 min)
+epoch  18 loss 0.1591 val AUC 0.9353 (33.1 min) *
+epoch  19 loss 0.1550 val AUC 0.9368 (34.9 min) *
+epoch  20 loss 0.1473 val AUC 0.9343 (36.8 min)
+epoch  21 loss 0.1468 val AUC 0.9419 (38.6 min) *
+epoch  22 loss 0.1382 val AUC 0.9432 (40.4 min) *
+epoch  23 loss 0.1324 val AUC 0.9435 (42.2 min) *
+epoch  24 loss 0.1286 val AUC 0.9438 (44.0 min) *
+epoch  25 loss 0.1280 val AUC 0.9426 (45.9 min)
+epoch  26 loss 0.1228 val AUC 0.9479 (47.7 min) *
+epoch  27 loss 0.1181 val AUC 0.9446 (49.5 min)
+epoch  28 loss 0.1145 val AUC 0.9500 (51.3 min) *
+epoch  29 loss 0.1126 val AUC 0.9505 (53.1 min) *
+epoch  30 loss 0.1095 val AUC 0.9541 (55.0 min) *
+epoch  31 loss 0.1086 val AUC 0.9519 (56.8 min)
+epoch  32 loss 0.1007 val AUC 0.9499 (58.6 min)
+epoch  33 loss 0.0990 val AUC 0.9503 (60.4 min)
+epoch  34 loss 0.0952 val AUC 0.9433 (62.3 min)
+epoch  35 loss 0.0960 val AUC 0.9505 (64.1 min)
+epoch  36 loss 0.0919 val AUC 0.9529 (65.9 min)
+epoch  37 loss 0.0911 val AUC 0.9519 (67.7 min)
+epoch  38 loss 0.0894 val AUC 0.9524 (69.5 min)
+epoch  39 loss 0.0869 val AUC 0.9484 (71.4 min)
+epoch  40 loss 0.0834 val AUC 0.9509 (73.2 min)
+epoch  41 loss 0.0827 val AUC 0.9477 (75.1 min)
+epoch  42 loss 0.0806 val AUC 0.9484 (76.9 min)
+epoch  43 loss 0.0814 val AUC 0.9477 (78.8 min)
+epoch  44 loss 0.0789 val AUC 0.9488 (80.6 min)
+epoch  45 loss 0.0767 val AUC 0.9504 (82.5 min)
+epoch  46 loss 0.0745 val AUC 0.9487 (84.3 min)
+epoch  47 loss 0.0753 val AUC 0.9490 (86.2 min)
+epoch  48 loss 0.0780 val AUC 0.9514 (88.0 min)
+epoch  49 loss 0.0742 val AUC 0.9501 (89.9 min)
+epoch  50 loss 0.0752 val AUC 0.9494 (91.7 min)
+
+best val AUC 0.9541; test AUC 0.9577
+saved cache/stage1_v3_noconf_seed2.pt and test scores
+=== 2026-08-26 16:48:28 starting: python stage2/train_sapl.py --config configs/stage2_sapl.yaml --lam 0.5 --out-prefix cache/stage2_sapl_lam0.5
+train 25218 segments / 232 identities; val 6959; test 4751; lambda 0.5
+epoch   1 task 0.4381 adv 5.3493 adv-acc 0.014 val AUC 0.7947 (1.8 min) *
+epoch   2 task 0.3973 adv 5.2969 adv-acc 0.015 val AUC 0.7933 (3.7 min)
+epoch   3 task 0.3849 adv 5.2431 adv-acc 0.017 val AUC 0.8081 (5.5 min) *
+epoch   4 task 0.3808 adv 5.2460 adv-acc 0.017 val AUC 0.7978 (7.3 min)
+epoch   5 task 0.3735 adv 5.2377 adv-acc 0.016 val AUC 0.8065 (9.1 min)
+epoch   6 task 0.3764 adv 5.2226 adv-acc 0.019 val AUC 0.7853 (11.0 min)
+epoch   7 task 0.3704 adv 5.2196 adv-acc 0.018 val AUC 0.8142 (12.8 min) *
+epoch   8 task 0.3604 adv 5.2033 adv-acc 0.019 val AUC 0.8276 (14.6 min) *
+epoch   9 task 0.3598 adv 5.2062 adv-acc 0.018 val AUC 0.7726 (16.5 min)
+epoch  10 task 0.3622 adv 5.2231 adv-acc 0.018 val AUC 0.8137 (18.3 min)
+epoch  11 task 0.3593 adv 5.2134 adv-acc 0.017 val AUC 0.8132 (20.1 min)
+epoch  12 task 0.3525 adv 5.2092 adv-acc 0.018 val AUC 0.8258 (21.9 min)
+epoch  13 task 0.3466 adv 5.2029 adv-acc 0.019 val AUC 0.8372 (23.8 min) *
+epoch  14 task 0.3445 adv 5.2050 adv-acc 0.019 val AUC 0.8245 (25.6 min)
+epoch  15 task 0.3452 adv 5.2065 adv-acc 0.018 val AUC 0.8314 (27.4 min)
+epoch  16 task 0.3434 adv 5.2007 adv-acc 0.020 val AUC 0.8327 (29.2 min)
+epoch  17 task 0.3375 adv 5.2033 adv-acc 0.020 val AUC 0.8274 (31.1 min)
+epoch  18 task 0.3345 adv 5.2056 adv-acc 0.019 val AUC 0.8409 (32.9 min) *
+epoch  19 task 0.3286 adv 5.2041 adv-acc 0.020 val AUC 0.8344 (34.7 min)
+epoch  20 task 0.3160 adv 5.2050 adv-acc 0.020 val AUC 0.8504 (36.6 min) *
+epoch  21 task 0.2944 adv 5.2021 adv-acc 0.020 val AUC 0.8739 (38.4 min) *
+epoch  22 task 0.2786 adv 5.2075 adv-acc 0.020 val AUC 0.8792 (40.2 min) *
+epoch  23 task 0.2688 adv 5.2065 adv-acc 0.020 val AUC 0.9037 (42.0 min) *
+epoch  24 task 0.2484 adv 5.2074 adv-acc 0.020 val AUC 0.9100 (43.8 min) *
+epoch  25 task 0.2394 adv 5.2104 adv-acc 0.021 val AUC 0.8995 (45.6 min)
+epoch  26 task 0.2354 adv 5.2120 adv-acc 0.021 val AUC 0.9139 (47.4 min) *
+epoch  27 task 0.2212 adv 5.2109 adv-acc 0.022 val AUC 0.9033 (49.2 min)
+epoch  28 task 0.2200 adv 5.2201 adv-acc 0.022 val AUC 0.9087 (51.1 min)
+epoch  29 task 0.2157 adv 5.2211 adv-acc 0.022 val AUC 0.9260 (52.9 min) *
+epoch  30 task 0.2095 adv 5.2176 adv-acc 0.021 val AUC 0.9133 (54.7 min)
+epoch  31 task 0.2049 adv 5.2157 adv-acc 0.020 val AUC 0.9250 (56.5 min)
+epoch  32 task 0.1973 adv 5.2103 adv-acc 0.020 val AUC 0.9212 (58.3 min)
+epoch  33 task 0.1956 adv 5.2153 adv-acc 0.021 val AUC 0.9193 (60.1 min)
+epoch  34 task 0.1921 adv 5.2123 adv-acc 0.022 val AUC 0.9245 (61.9 min)
+epoch  35 task 0.1880 adv 5.2132 adv-acc 0.022 val AUC 0.9298 (63.8 min) *
+epoch  36 task 0.1866 adv 5.2128 adv-acc 0.021 val AUC 0.9237 (65.6 min)
+epoch  37 task 0.1772 adv 5.2046 adv-acc 0.021 val AUC 0.9266 (67.4 min)
+epoch  38 task 0.1760 adv 5.2083 adv-acc 0.022 val AUC 0.9272 (69.2 min)
+epoch  39 task 0.1747 adv 5.2083 adv-acc 0.023 val AUC 0.9283 (71.0 min)
+epoch  40 task 0.1757 adv 5.2075 adv-acc 0.023 val AUC 0.9265 (72.9 min)
+epoch  41 task 0.1701 adv 5.2098 adv-acc 0.023 val AUC 0.9297 (74.7 min)
+epoch  42 task 0.1678 adv 5.2122 adv-acc 0.023 val AUC 0.9306 (76.5 min) *
+epoch  43 task 0.1696 adv 5.2115 adv-acc 0.023 val AUC 0.9317 (78.4 min) *
+epoch  44 task 0.1616 adv 5.2114 adv-acc 0.022 val AUC 0.9310 (80.2 min)
+epoch  45 task 0.1620 adv 5.2123 adv-acc 0.023 val AUC 0.9309 (82.0 min)
+epoch  46 task 0.1603 adv 5.2119 adv-acc 0.022 val AUC 0.9318 (83.8 min) *
+epoch  47 task 0.1630 adv 5.2118 adv-acc 0.023 val AUC 0.9321 (85.7 min) *
+epoch  48 task 0.1601 adv 5.2091 adv-acc 0.023 val AUC 0.9313 (87.5 min)
+epoch  49 task 0.1649 adv 5.2106 adv-acc 0.022 val AUC 0.9319 (89.3 min)
+epoch  50 task 0.1562 adv 5.2089 adv-acc 0.023 val AUC 0.9320 (91.1 min)
+
+lambda 0.5: best val AUC 0.9321; test AUC 0.9350
+saved cache/stage2_sapl_lam0.5.pt and test scores
+=== 2026-08-26 18:19:43 starting: python stage2/train_sapl.py --config configs/stage2_sapl.yaml --lam 0.7 --out-prefix cache/stage2_sapl_lam0.7
+train 25218 segments / 232 identities; val 6959; test 4751; lambda 0.7
+epoch   1 task 0.4465 adv 5.3550 adv-acc 0.015 val AUC 0.7745 (1.8 min) *
+epoch   2 task 0.4011 adv 5.2921 adv-acc 0.015 val AUC 0.7999 (3.6 min) *
+epoch   3 task 0.3954 adv 5.2495 adv-acc 0.017 val AUC 0.8173 (5.5 min) *
+epoch   4 task 0.3826 adv 5.2374 adv-acc 0.016 val AUC 0.8096 (7.3 min)
+epoch   5 task 0.3792 adv 5.2317 adv-acc 0.018 val AUC 0.8135 (9.1 min)
+epoch   6 task 0.3812 adv 5.2367 adv-acc 0.017 val AUC 0.8027 (10.9 min)
+epoch   7 task 0.3775 adv 5.2264 adv-acc 0.018 val AUC 0.8105 (12.7 min)
+epoch   8 task 0.3717 adv 5.2279 adv-acc 0.018 val AUC 0.8211 (14.5 min) *
+epoch   9 task 0.3691 adv 5.2274 adv-acc 0.018 val AUC 0.8225 (16.3 min) *
+epoch  10 task 0.3645 adv 5.2141 adv-acc 0.017 val AUC 0.8056 (18.1 min)
+epoch  11 task 0.3659 adv 5.2181 adv-acc 0.018 val AUC 0.8161 (19.9 min)
+epoch  12 task 0.3602 adv 5.2182 adv-acc 0.018 val AUC 0.8071 (21.7 min)
+epoch  13 task 0.3517 adv 5.1996 adv-acc 0.018 val AUC 0.8222 (23.5 min)
+epoch  14 task 0.3516 adv 5.2131 adv-acc 0.018 val AUC 0.8211 (25.3 min)
+epoch  15 task 0.3530 adv 5.2171 adv-acc 0.018 val AUC 0.8234 (27.1 min) *
+epoch  16 task 0.3534 adv 5.2124 adv-acc 0.020 val AUC 0.8242 (28.9 min) *
+epoch  17 task 0.3451 adv 5.2091 adv-acc 0.018 val AUC 0.8221 (30.7 min)
+epoch  18 task 0.3428 adv 5.2098 adv-acc 0.019 val AUC 0.8307 (32.5 min) *
+epoch  19 task 0.3408 adv 5.2144 adv-acc 0.019 val AUC 0.8201 (34.3 min)
+epoch  20 task 0.3403 adv 5.2114 adv-acc 0.019 val AUC 0.8271 (36.1 min)
+epoch  21 task 0.3347 adv 5.2050 adv-acc 0.020 val AUC 0.8353 (37.9 min) *
+epoch  22 task 0.3312 adv 5.2071 adv-acc 0.020 val AUC 0.8384 (39.7 min) *
+epoch  23 task 0.3310 adv 5.2070 adv-acc 0.020 val AUC 0.8280 (41.5 min)
+epoch  24 task 0.3234 adv 5.2094 adv-acc 0.019 val AUC 0.8322 (43.3 min)
+epoch  25 task 0.3221 adv 5.2081 adv-acc 0.020 val AUC 0.8390 (45.1 min) *
+epoch  26 task 0.3209 adv 5.2052 adv-acc 0.019 val AUC 0.8466 (46.9 min) *
+epoch  27 task 0.3160 adv 5.2095 adv-acc 0.020 val AUC 0.8290 (48.7 min)
+epoch  28 task 0.3139 adv 5.2063 adv-acc 0.020 val AUC 0.8361 (50.5 min)
+epoch  29 task 0.3095 adv 5.2098 adv-acc 0.019 val AUC 0.8258 (52.3 min)
+epoch  30 task 0.3072 adv 5.2154 adv-acc 0.020 val AUC 0.8075 (54.1 min)
+epoch  31 task 0.3051 adv 5.2103 adv-acc 0.020 val AUC 0.8361 (55.9 min)
+epoch  32 task 0.3003 adv 5.2123 adv-acc 0.020 val AUC 0.8426 (57.7 min)
+epoch  33 task 0.2929 adv 5.2140 adv-acc 0.020 val AUC 0.8155 (59.5 min)
+epoch  34 task 0.2938 adv 5.2153 adv-acc 0.019 val AUC 0.8389 (61.3 min)
+epoch  35 task 0.2843 adv 5.2108 adv-acc 0.020 val AUC 0.8330 (63.1 min)
+epoch  36 task 0.2858 adv 5.2155 adv-acc 0.020 val AUC 0.8432 (64.9 min)
+epoch  37 task 0.2792 adv 5.2140 adv-acc 0.020 val AUC 0.8450 (66.7 min)
+epoch  38 task 0.2741 adv 5.2158 adv-acc 0.020 val AUC 0.8411 (68.5 min)
+epoch  39 task 0.2692 adv 5.2158 adv-acc 0.020 val AUC 0.8407 (70.3 min)
+epoch  40 task 0.2646 adv 5.2155 adv-acc 0.021 val AUC 0.8554 (72.1 min) *
+epoch  41 task 0.2636 adv 5.2156 adv-acc 0.020 val AUC 0.8521 (73.9 min)
+epoch  42 task 0.2606 adv 5.2180 adv-acc 0.020 val AUC 0.8504 (75.7 min)
+epoch  43 task 0.2544 adv 5.2195 adv-acc 0.019 val AUC 0.8434 (77.5 min)
+epoch  44 task 0.2523 adv 5.2185 adv-acc 0.020 val AUC 0.8487 (79.3 min)
+epoch  45 task 0.2516 adv 5.2205 adv-acc 0.021 val AUC 0.8459 (81.1 min)
+epoch  46 task 0.2515 adv 5.2198 adv-acc 0.020 val AUC 0.8496 (82.9 min)
+epoch  47 task 0.2493 adv 5.2199 adv-acc 0.019 val AUC 0.8487 (84.7 min)
+epoch  48 task 0.2503 adv 5.2202 adv-acc 0.020 val AUC 0.8495 (86.5 min)
+epoch  49 task 0.2523 adv 5.2217 adv-acc 0.020 val AUC 0.8505 (88.3 min)
+epoch  50 task 0.2470 adv 5.2192 adv-acc 0.020 val AUC 0.8510 (90.1 min)
+
+lambda 0.7: best val AUC 0.8554; test AUC 0.8508
+saved cache/stage2_sapl_lam0.7.pt and test scores
+=== 2026-08-26 19:49:55 starting: python stage1/train.py --config configs/stage1_abl_velocity_v3norm.yaml --out-prefix cache/stage1_abl_velocity_v3norm
+train 25218 / val 6959 (57 children) / test 4751
+params: 353.4K
+epoch   1 loss 0.4209 val AUC 0.7971 (1.8 min) *
+epoch   2 loss 0.3776 val AUC 0.8164 (3.6 min) *
+epoch   3 loss 0.3653 val AUC 0.8234 (5.4 min) *
+epoch   4 loss 0.3558 val AUC 0.8247 (7.2 min) *
+epoch   5 loss 0.3526 val AUC 0.8198 (9.0 min)
+epoch   6 loss 0.3469 val AUC 0.8397 (10.8 min) *
+epoch   7 loss 0.3410 val AUC 0.8332 (12.6 min)
+epoch   8 loss 0.3335 val AUC 0.8384 (14.4 min)
+epoch   9 loss 0.3238 val AUC 0.8355 (16.2 min)
+epoch  10 loss 0.3165 val AUC 0.8585 (18.0 min) *
+epoch  11 loss 0.2841 val AUC 0.8713 (19.8 min) *
+epoch  12 loss 0.2534 val AUC 0.8956 (21.6 min) *
+epoch  13 loss 0.2351 val AUC 0.9057 (23.4 min) *
+epoch  14 loss 0.2194 val AUC 0.9044 (25.2 min)
+epoch  15 loss 0.2068 val AUC 0.9122 (27.0 min) *
+epoch  16 loss 0.1921 val AUC 0.9251 (28.8 min) *
+epoch  17 loss 0.1849 val AUC 0.9361 (30.6 min) *
+epoch  18 loss 0.1730 val AUC 0.9347 (32.4 min)
+epoch  19 loss 0.1682 val AUC 0.9400 (34.2 min) *
+epoch  20 loss 0.1557 val AUC 0.9368 (36.0 min)
+epoch  21 loss 0.1526 val AUC 0.9370 (37.8 min)
+epoch  22 loss 0.1460 val AUC 0.9387 (39.6 min)
+epoch  23 loss 0.1376 val AUC 0.9393 (41.4 min)
+epoch  24 loss 0.1324 val AUC 0.9416 (43.1 min) *
+epoch  25 loss 0.1240 val AUC 0.9429 (44.9 min) *
+epoch  26 loss 0.1208 val AUC 0.9407 (46.7 min)
+epoch  27 loss 0.1153 val AUC 0.9427 (48.5 min)
+epoch  28 loss 0.1115 val AUC 0.9384 (50.3 min)
+epoch  29 loss 0.1067 val AUC 0.9461 (52.1 min) *
+epoch  30 loss 0.0996 val AUC 0.9418 (53.9 min)
+epoch  31 loss 0.0941 val AUC 0.9421 (55.7 min)
+epoch  32 loss 0.0912 val AUC 0.9455 (57.5 min)
+epoch  33 loss 0.0871 val AUC 0.9476 (59.3 min) *
+epoch  34 loss 0.0828 val AUC 0.9465 (61.1 min)
+epoch  35 loss 0.0763 val AUC 0.9486 (62.9 min) *
+epoch  36 loss 0.0767 val AUC 0.9464 (64.7 min)
+epoch  37 loss 0.0719 val AUC 0.9432 (66.5 min)
+epoch  38 loss 0.0700 val AUC 0.9443 (68.3 min)
+epoch  39 loss 0.0653 val AUC 0.9462 (70.1 min)
+epoch  40 loss 0.0626 val AUC 0.9444 (71.9 min)
+epoch  41 loss 0.0591 val AUC 0.9425 (73.7 min)
+epoch  42 loss 0.0608 val AUC 0.9432 (75.5 min)
+epoch  43 loss 0.0588 val AUC 0.9415 (77.3 min)
+epoch  44 loss 0.0538 val AUC 0.9436 (79.1 min)
+epoch  45 loss 0.0552 val AUC 0.9426 (80.9 min)
+epoch  46 loss 0.0545 val AUC 0.9419 (82.7 min)
+epoch  47 loss 0.0539 val AUC 0.9398 (84.5 min)
+epoch  48 loss 0.0520 val AUC 0.9412 (86.3 min)
+epoch  49 loss 0.0503 val AUC 0.9419 (88.1 min)
+epoch  50 loss 0.0494 val AUC 0.9413 (89.9 min)
+
+best val AUC 0.9486; test AUC 0.9443
+saved cache/stage1_abl_velocity_v3norm.pt and test scores
+=== 2026-08-26 21:19:56 starting: python stage1/train.py --config configs/stage1_abl_dropout_v3norm.yaml --out-prefix cache/stage1_abl_dropout_v3norm
+train 25218 / val 6959 (57 children) / test 4751
+params: 352.9K
+epoch   1 loss 0.4545 val AUC 0.7555 (1.8 min) *
+epoch   2 loss 0.3979 val AUC 0.7855 (3.6 min) *
+epoch   3 loss 0.3790 val AUC 0.8049 (5.4 min) *
+epoch   4 loss 0.3724 val AUC 0.7993 (7.2 min)
+epoch   5 loss 0.3638 val AUC 0.8050 (9.0 min) *
+epoch   6 loss 0.3609 val AUC 0.8096 (10.8 min) *
+epoch   7 loss 0.3527 val AUC 0.8236 (12.6 min) *
+epoch   8 loss 0.3516 val AUC 0.8348 (14.4 min) *
+epoch   9 loss 0.3439 val AUC 0.8317 (16.2 min)
+epoch  10 loss 0.3451 val AUC 0.8215 (18.0 min)
+epoch  11 loss 0.3390 val AUC 0.8403 (19.9 min) *
+epoch  12 loss 0.3354 val AUC 0.8467 (21.7 min) *
+epoch  13 loss 0.3306 val AUC 0.8349 (23.5 min)
+epoch  14 loss 0.3272 val AUC 0.8276 (25.4 min)
+epoch  15 loss 0.3239 val AUC 0.8361 (27.2 min)
+epoch  16 loss 0.3207 val AUC 0.8458 (29.1 min)
+epoch  17 loss 0.3165 val AUC 0.8501 (30.9 min) *
+epoch  18 loss 0.3094 val AUC 0.8394 (32.7 min)
+epoch  19 loss 0.3108 val AUC 0.8519 (34.6 min) *
+epoch  20 loss 0.3060 val AUC 0.8481 (36.4 min)
+epoch  21 loss 0.3012 val AUC 0.8495 (38.3 min)
+epoch  22 loss 0.2944 val AUC 0.8528 (40.1 min) *
+epoch  23 loss 0.2940 val AUC 0.8471 (41.9 min)
+epoch  24 loss 0.2865 val AUC 0.8502 (43.7 min)
+epoch  25 loss 0.2772 val AUC 0.8616 (45.6 min) *
+epoch  26 loss 0.2742 val AUC 0.8578 (47.4 min)
+epoch  27 loss 0.2632 val AUC 0.8711 (49.3 min) *
+epoch  28 loss 0.2560 val AUC 0.8687 (51.1 min)
+epoch  29 loss 0.2517 val AUC 0.8728 (52.9 min) *
+epoch  30 loss 0.2384 val AUC 0.8725 (54.8 min)
+epoch  31 loss 0.2347 val AUC 0.8822 (56.6 min) *
+epoch  32 loss 0.2266 val AUC 0.8804 (58.5 min)
+epoch  33 loss 0.2204 val AUC 0.8870 (60.3 min) *
+epoch  34 loss 0.2145 val AUC 0.8816 (62.2 min)
+epoch  35 loss 0.2046 val AUC 0.8893 (64.0 min) *
+epoch  36 loss 0.2069 val AUC 0.8877 (65.8 min)
+epoch  37 loss 0.2020 val AUC 0.8944 (67.7 min) *
+epoch  38 loss 0.1988 val AUC 0.8923 (69.5 min)
+epoch  39 loss 0.1928 val AUC 0.8908 (71.3 min)
+epoch  40 loss 0.1870 val AUC 0.8936 (73.1 min)
+epoch  41 loss 0.1906 val AUC 0.8932 (75.0 min)
+epoch  42 loss 0.1816 val AUC 0.8956 (76.8 min) *
+epoch  43 loss 0.1812 val AUC 0.8936 (78.7 min)
+epoch  44 loss 0.1807 val AUC 0.8934 (80.5 min)
+epoch  45 loss 0.1781 val AUC 0.8957 (82.4 min) *
+epoch  46 loss 0.1762 val AUC 0.8946 (84.2 min)
+epoch  47 loss 0.1741 val AUC 0.8948 (86.1 min)
+epoch  48 loss 0.1756 val AUC 0.8945 (87.9 min)
+epoch  49 loss 0.1741 val AUC 0.8949 (89.7 min)
+epoch  50 loss 0.1728 val AUC 0.8937 (91.6 min)
+
+best val AUC 0.8957; test AUC 0.8997
+saved cache/stage1_abl_dropout_v3norm.pt and test scores
+=== 2026-08-26 22:51:39 W3 complete

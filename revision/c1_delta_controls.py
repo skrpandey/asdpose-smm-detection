@@ -67,6 +67,9 @@ def main():
     ap.add_argument("--iters", type=int, default=10000)
     ap.add_argument("--draws", type=int, default=1000)
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--sweep-only", action="store_true",
+                    help="skip the bootstrap and subsample blocks; recompute "
+                         "only the threshold sweep and its figure")
     args = ap.parse_args()
     rng = np.random.RandomState(args.seed)
 
@@ -106,13 +109,13 @@ def main():
     children = np.unique(child)
     by_child = {c: child == c for c in children}
 
+    full = np.ones(len(te), bool)
     print("## C1.1 Paired child-clustered bootstrap CIs for Delta "
           f"({args.iters} resamples of {len(children)} children)\n")
     print("| model | Delta | 95% CI |")
     print("|---|---|---|")
-    full = np.ones(len(te), bool)
     ci_rows = []
-    for name, arrs in model_scores.items():
+    for name, arrs in (model_scores.items() if not args.sweep_only else []):
         point = family_delta(arrs, full)
         boots = []
         for _ in range(args.iters):
@@ -131,12 +134,13 @@ def main():
         print(f"| {name} | {point:.3f} | [{lo:.3f}, {hi:.3f}] |")
         ci_rows.append((name, point, lo, hi))
 
-    lines = [r"\begin{tabular}{lcc}", r"\toprule",
-             r"model & $\Delta$ & 95\% CI \\", r"\midrule"]
-    for name, point, lo, hi in ci_rows:
-        lines.append(f"{name} & {point:.3f} & [{lo:.3f}, {hi:.3f}] \\\\")
-    lines += [r"\bottomrule", r"\end{tabular}"]
-    open("results/tables/table_delta_ci.tex", "w").write("\n".join(lines) + "\n")
+    if ci_rows:
+        lines = [r"\begin{tabular}{lcc}", r"\toprule",
+                 r"model & $\Delta$ & 95\% CI \\", r"\midrule"]
+        for name, point, lo, hi in ci_rows:
+            lines.append(f"{name} & {point:.3f} & [{lo:.3f}, {hi:.3f}] \\\\")
+        lines += [r"\bottomrule", r"\end{tabular}"]
+        open("results/tables/table_delta_ci.tex", "w").write("\n".join(lines) + "\n")
 
     print(f"\n## C1.2 Random-subsample negative control "
           f"({args.draws} draws of {n_hn_neg} of {(labels == 0).sum()} negatives)\n")
@@ -144,7 +148,7 @@ def main():
           "mean [2.5%, 97.5%] |")
     print("|---|---|---|")
     neg_idx = np.where(labels == 0)[0]
-    for name, arrs in model_scores.items():
+    for name, arrs in (model_scores.items() if not args.sweep_only else []):
         point = family_delta(arrs, full)
         rand_deltas = []
         for _ in range(args.draws):
@@ -185,26 +189,28 @@ def main():
             print(f"| {fm} | {am} | {kept} | {cells} | {rank} |")
             sweep_records.append((fm, am, kept, list(deltas)))
 
-    # supplementary figure: Delta per model across the 25 sweep cells
+    # main-paper figure: Delta per model across the 25 sweep cells,
+    # sized and set for a two-column-layout column
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(6.2, 3.2))
+    fig, ax = plt.subplots(figsize=(4.8, 2.2))
     xs = np.arange(len(sweep_records))
     frozen_cell = [i for i, (fm, am, _, _) in enumerate(sweep_records)
                    if fm == 0.10 and am == 0.30][0]
     colors = ["#555555", "#d62728", "#1f77b4", "#2ca02c", "#9467bd"]
     for j, name in enumerate(sweep_models):
         ax.plot(xs, [rec[3][j] for rec in sweep_records], marker="o",
-                markersize=3, linewidth=1.2, label=name, color=colors[j])
-    ax.axvline(frozen_cell, color="0.6", linestyle=(0, (4, 3)), linewidth=1.0)
+                markersize=3.5, linewidth=1.4, label=name, color=colors[j])
+    ax.axvline(frozen_cell, color="0.6", linestyle=(0, (4, 3)), linewidth=1.1)
     ax.annotate("frozen thresholds", (frozen_cell, ax.get_ylim()[1]),
-                xytext=(4, -10), textcoords="offset points", fontsize=8,
+                xytext=(5, -11), textcoords="offset points", fontsize=9,
                 color="0.4")
-    ax.set_xlabel("sweep cell (frozen-frame max x arm low-confidence max, "
-                  "row-major over the +/-0.05 grid)")
-    ax.set_ylabel(r"$\Delta$ (standard $-$ QC AUC)")
-    ax.legend(frameon=False, fontsize=8, ncol=2)
+    ax.set_xlabel("sweep cell (25 combinations of the two cutoffs)",
+                  fontsize=10)
+    ax.set_ylabel(r"$\Delta$ (standard $-$ QC AUC)", fontsize=10)
+    ax.tick_params(labelsize=9)
+    ax.legend(frameon=False, fontsize=9, ncol=2)
     ax.grid(axis="y", color="0.9", linewidth=0.6)
     ax.set_axisbelow(True)
     fig.tight_layout()
