@@ -91,28 +91,46 @@ lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_main.tex", "w").write("\n".join(lines) + "\n")
 
 # ---------------------------------------------------------------- table 2
-# ablation 2x2 plus v2 seed spread
-ABL = [
-    ("neither (v1)", "results/segment_scores/stage1_detector_test_scores.csv"),
-    ("velocity only", "results/segment_scores/stage1_abl_velocity_test_scores.csv"),
-    ("joint dropout only", "results/segment_scores/stage1_abl_dropout_test_scores.csv"),
-    ("both (v2)", "results/segment_scores/stage1_detector_v2_test_scores.csv"),
-]
+# remedy ablation: the 2x2 at both factor-level settings
+def family(paths):
+    st, hn = [], []
+    for p in paths:
+        res = evaluate(scores_of(p)[1], rows)
+        st.append(res["standard"]["auc"])
+        hn.append(res["hard_negative"]["auc"])
+    return st, hn
+
+
 lines = [r"\begin{tabular}{lcc}", r"\toprule",
-         r"variant & standard AUC & QC AUC \\", r"\midrule"]
-for name, path in ABL:
+         r"variant & standard AUC & QC AUC \\", r"\midrule",
+         r"\multicolumn{3}{l}{\emph{v1 scaling, balanced sampling}} \\"]
+for name, path in [
+        ("neither (v1)", "results/segment_scores/stage1_detector_test_scores.csv"),
+        ("velocity only", "results/segment_scores/stage1_abl_velocity_test_scores.csv"),
+        ("joint dropout only", "results/segment_scores/stage1_abl_dropout_test_scores.csv"),
+        ("both (v2)", "results/segment_scores/stage1_detector_v2_test_scores.csv")]:
     res = evaluate(scores_of(path)[1], rows)
-    lines.append(f"{name} & {f(res['standard']['auc'])} & {f(res['hard_negative']['auc'])} \\\\")
-v2_st, v2_hn = [], []
-for p in ["results/segment_scores/stage1_detector_v2_test_scores.csv",
-          "results/segment_scores/stage1_v2_seed1_test_scores.csv",
-          "results/segment_scores/stage1_v2_seed2_test_scores.csv"]:
-    res = evaluate(scores_of(p)[1], rows)
-    v2_st.append(res["standard"]["auc"])
-    v2_hn.append(res["hard_negative"]["auc"])
-lines.append(r"\midrule")
-lines.append(f"both (v2), 3 seeds & {f(np.mean(v2_st))} $\\pm$ {f(np.std(v2_st))} "
+    lines.append(f"\\quad {name} & {f(res['standard']['auc'])} & "
+                 f"{f(res['hard_negative']['auc'])} \\\\")
+v2_st, v2_hn = family(["results/segment_scores/stage1_detector_v2_test_scores.csv",
+                       "results/segment_scores/stage1_v2_seed1_test_scores.csv",
+                       "results/segment_scores/stage1_v2_seed2_test_scores.csv"])
+lines.append(f"\\quad both (v2), 3 seeds & {f(np.mean(v2_st))} $\\pm$ {f(np.std(v2_st))} "
              f"& {f(np.mean(v2_hn))} $\\pm$ {f(np.std(v2_hn))} \\\\")
+lines.append(r"\midrule")
+lines.append(r"\multicolumn{3}{l}{\emph{v3 scaling, natural prior}} \\")
+for name, path in [
+        ("neither", "results/segment_scores/wacv_ours_base_test_scores.csv"),
+        ("velocity only", "results/segment_scores/stage1_abl_velocity_v3norm_test_scores.csv"),
+        ("joint dropout only", "results/segment_scores/stage1_abl_dropout_v3norm_test_scores.csv")]:
+    res = evaluate(scores_of(path)[1], rows)
+    lines.append(f"\\quad {name} & {f(res['standard']['auc'])} & "
+                 f"{f(res['hard_negative']['auc'])} \\\\")
+v3_st, v3_hn = family(["results/segment_scores/stage2_sapl_lam0_seed0_test_scores.csv",
+                       "results/segment_scores/stage2_sapl_lam0_seed1_test_scores.csv",
+                       "results/segment_scores/stage2_sapl_lam0_seed2_test_scores.csv"])
+lines.append(f"\\quad both (v3), 3 seeds & {f(np.mean(v3_st))} $\\pm$ {f(np.std(v3_st))} "
+             f"& {f(np.mean(v3_hn))} $\\pm$ {f(np.std(v3_hn))} \\\\")
 lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_ablation.tex", "w").write("\n".join(lines) + "\n")
 
@@ -120,11 +138,14 @@ open(f"{OUT}/table_ablation.tex", "w").write("\n".join(lines) + "\n")
 # SAPL tradeoff with per-child stats and MI (MI values from stage2 logs,
 # reproduced by stage2/mi_probe.py; kept as a documented constant map so
 # this script has no GPU dependency)
-MI_BITS = {"0": 1.3965, "0.1": 1.3444, "0.3": 1.1854, "1.0": 0.5902}  # corrected H_emp(Y)-CE bound
+MI_BITS = {"0": 1.3965, "0.1": 1.3444, "0.3": 1.1854, "0.5": 1.0458,
+           "0.7": 0.6459, "1.0": 0.5902}  # corrected H_emp(Y)-CE bound
 SAPL = [
     ("0", "results/segment_scores/stage1_detector_v3_test_scores.csv"),
     ("0.1", "results/segment_scores/stage2_sapl_lam0.1_test_scores.csv"),
     ("0.3", "results/segment_scores/stage2_sapl_lam0.3_test_scores.csv"),
+    ("0.5", "results/segment_scores/stage2_sapl_lam0.5_test_scores.csv"),
+    ("0.7", "results/segment_scores/stage2_sapl_lam0.7_test_scores.csv"),
     ("1.0", "results/segment_scores/stage2_sapl_lam1.0_test_scores.csv"),
 ]
 lines = [r"\begin{tabular}{lccccc}", r"\toprule",

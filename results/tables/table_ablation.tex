@@ -2,11 +2,17 @@
 \toprule
 variant & standard AUC & QC AUC \\
 \midrule
-neither (v1) & 0.843 & 0.759 \\
-velocity only & 0.931 & 0.918 \\
-joint dropout only & 0.938 & 0.926 \\
-both (v2) & 0.940 & 0.927 \\
+\multicolumn{3}{l}{\emph{v1 scaling, balanced sampling}} \\
+\quad neither (v1) & 0.843 & 0.759 \\
+\quad velocity only & 0.931 & 0.918 \\
+\quad joint dropout only & 0.938 & 0.926 \\
+\quad both (v2) & 0.940 & 0.927 \\
+\quad both (v2), 3 seeds & 0.944 $\pm$ 0.003 & 0.929 $\pm$ 0.004 \\
 \midrule
-both (v2), 3 seeds & 0.944 $\pm$ 0.003 & 0.929 $\pm$ 0.004 \\
+\multicolumn{3}{l}{\emph{v3 scaling, natural prior}} \\
+\quad neither & 0.865 & 0.792 \\
+\quad velocity only & 0.944 & 0.929 \\
+\quad joint dropout only & 0.900 & 0.866 \\
+\quad both (v3), 3 seeds & 0.957 $\pm$ 0.003 & 0.944 $\pm$ 0.004 \\
 \bottomrule
 \end{tabular}
