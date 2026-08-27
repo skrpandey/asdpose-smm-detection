@@ -194,7 +194,7 @@ def main():
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    fig, ax = plt.subplots(figsize=(4.8, 2.2))
+    fig, ax = plt.subplots(figsize=(4.8, 2.6))
     xs = np.arange(len(sweep_records))
     frozen_cell = [i for i, (fm, am, _, _) in enumerate(sweep_records)
                    if fm == 0.10 and am == 0.30][0]

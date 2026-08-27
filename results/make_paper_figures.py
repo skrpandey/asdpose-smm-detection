@@ -173,7 +173,7 @@ non = [r for r in te if r["binary_label"] == 0 and 250 <= r["n_frames"] <= 400]
 smm_ex = min(smm, key=lambda r: abs(r["q_lowconf"] - 0.25))
 non_ex = min(non, key=lambda r: abs(r["q_lowconf"] - 0.55))
 
-fig_, axes = plt.subplots(1, 2, figsize=(4.8, 2.1), sharey=True)
+fig_, axes = plt.subplots(1, 2, figsize=(4.8, 2.35), sharey=True)
 for ax, r, title in [(axes[0], smm_ex, "SMM segment"),
                      (axes[1], non_ex, "non-SMM segment")]:
     arr = ds.load_segment(r)
