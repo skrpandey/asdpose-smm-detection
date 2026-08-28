@@ -192,7 +192,7 @@ def annotation_totals(data_root):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--data-root", default="/hd/data/StimmingADSMotion")
+    ap.add_argument("--data-root", default="data/StimmingADSMotion")
     ap.add_argument("--model", choices=["ours", "baseline"], required=True)
     ap.add_argument("--weights", default=None)
     ap.add_argument("--threshold", type=float, default=0.85)

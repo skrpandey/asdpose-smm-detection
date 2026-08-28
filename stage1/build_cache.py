@@ -43,7 +43,7 @@ def quality_features(kp, sc):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--data-root", default="/hd/data/StimmingADSMotion")
+    ap.add_argument("--data-root", default="data/StimmingADSMotion")
     ap.add_argument("--cache-dir", default="cache/segments")
     args = ap.parse_args()
 

@@ -61,7 +61,7 @@ def verify_span(rkp, skp, offset):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--data-root", default="/hd/data/StimmingADSMotion")
+    ap.add_argument("--data-root", default="data/StimmingADSMotion")
     ap.add_argument("--split", choices=["test", "train", "all"], default="test")
     ap.add_argument("--out", default="cache/segment_map_test.csv")
     ap.add_argument("--min-verified", type=float, default=0.95)

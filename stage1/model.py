@@ -7,7 +7,8 @@ shortcut, see configs/protocols.yaml).
 
 Blocks are CTR-GC spatial units (channel-wise topology refinement on a
 COCO-17 base adjacency) followed by multi-scale temporal convolutions.
-Widths are chosen to land near the 351K parameter budget from the study plan.
+Widths are chosen to land near a 351K parameter budget, set to stay
+well under the released 3.0M-parameter PoseConv3D baseline.
 
 Run directly to print the parameter count and a forward-pass shape check.
 """

@@ -25,7 +25,7 @@ from collections import defaultdict
 import numpy as np
 from scipy.stats import spearmanr
 
-DATA_ROOT = "/hd/data/StimmingADSMotion"
+DATA_ROOT = "data/StimmingADSMotion"
 TEST_CHILDREN = [3, 21, 30, 59, 61, 66, 68, 108, 113, 116, 132, 139, 148,
                  156, 180, 183, 184, 185, 186, 190, 198, 204, 210, 215,
                  233, 237, 241]

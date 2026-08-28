@@ -1,6 +1,7 @@
 # Evaluation protocols for Stage 1+. Frozen 2026-08-12; do not tune these
-# against results. Thresholds come from Gate 0.2 statistics, chosen before
-# any model was trained (see reports/stage0_review_and_stage1_plan.md).
+# against results. Thresholds come from Gate 0.2 pose-quality statistics
+# (frozen-frame fraction, arm low-confidence fraction), chosen before any
+# model was trained.
 
 standard:
   # released test split, all segments

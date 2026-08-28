@@ -1,5 +1,6 @@
 # Stage 1 detector training config. All temporal quantities in FRAMES
-# (the release's fps fields are unreliable, see stage0_report.md).
+# (the release's fps fields are unreliable, so frame counts are the
+# only trustworthy time unit).
 
 model:
   widths: [48, 96, 136]     # 352.9K params

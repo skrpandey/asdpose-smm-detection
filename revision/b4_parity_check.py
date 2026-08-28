@@ -28,7 +28,7 @@ import numpy as np
 
 sys.path.insert(0, "stage0")
 
-FORK = "/hd/paper-code/mmaction2-fork/mmaction/datasets/pipelines"
+FORK = "mmaction2-fork/mmaction/datasets/pipelines"
 
 
 def build_fork_namespace():
@@ -121,7 +121,7 @@ def main():
 
     ns = build_fork_namespace()
 
-    with open("/hd/data/StimmingADSMotion/dataset.pkl", "rb") as f:
+    with open("data/StimmingADSMotion/dataset.pkl", "rb") as f:
         d = pickle.load(f)
     test_ids = set(d["split"]["test"])
     segs = [a for a in d["annotations"] if a["identifier"] in test_ids]
@@ -131,7 +131,7 @@ def main():
     import torch
     import torch.nn.functional as F
     model = PoseConv3D()
-    model.load_mmaction_checkpoint("/hd/data/StimmingADSMotion/model.pth")
+    model.load_mmaction_checkpoint("data/StimmingADSMotion/model.pth")
     model = model.cuda().eval()
 
     max_hm_diff = 0.0

@@ -6,7 +6,7 @@ and how common frozen keypoints (tracker failure) are. Also spot-checks one
 untrimmed recording from asdpose.zip.
 
 Usage:
-    python stage0/gate02_pose_quality.py --data-root /hd/data/StimmingADSMotion \
+    python stage0/gate02_pose_quality.py --data-root data/StimmingADSMotion \
         --sample 2000 --seed 0
 """
 
@@ -72,7 +72,7 @@ def audit_segments(segs, title):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--data-root", default="/hd/data/StimmingADSMotion")
+    ap.add_argument("--data-root", default="data/StimmingADSMotion")
     ap.add_argument("--sample", type=int, default=2000)
     ap.add_argument("--seed", type=int, default=0)
     args = ap.parse_args()

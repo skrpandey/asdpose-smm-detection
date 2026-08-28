@@ -8,8 +8,9 @@ take a centered window and compute the max normalized autocorrelation over
 lags 0.25 to 2.0 seconds. Frames inherit their segment's binary label.
 
 Untrimmed recordings cannot be used because the released annotations do not
-align with the released recordings (see stage0_report.md), so this runs on
-the annotated segments, which the study plan allows.
+align with the released recordings (annotated end times exceed recording
+durations, and no segment matches its stated timestamp by cross-correlation;
+main paper Section 3.1), so this runs on the annotated segments instead.
 
 Controls (both must lose to the periodicity score, otherwise the signal is a
 confound):
@@ -124,7 +125,7 @@ def auc(scores, labels):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--data-root", default="/hd/data/StimmingADSMotion")
+    ap.add_argument("--data-root", default="data/StimmingADSMotion")
     ap.add_argument("--split", choices=["test", "train", "all"], default="test")
     ap.add_argument("--min-valid", type=float, default=0.5,
                     help="skip segments with less than this fraction of usable speed samples")

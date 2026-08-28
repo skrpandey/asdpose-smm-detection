@@ -46,7 +46,7 @@ def crop_and_preprocess(args):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--data-root", default="/hd/data/StimmingADSMotion")
+    ap.add_argument("--data-root", default="data/StimmingADSMotion")
     ap.add_argument("--out", default="cache/gate03_segment_scores.csv")
     ap.add_argument("--threshold", type=float, default=0.85)
     ap.add_argument("--seed", type=int, default=0)

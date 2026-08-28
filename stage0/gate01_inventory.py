@@ -6,7 +6,7 @@ labels exist, whether a child identifier is recoverable, whether the published
 (7352 SMM segments, 241 children, 319 assessments, 6597/755 train/test SMM).
 
 Usage:
-    python stage0/gate01_inventory.py --data-root /hd/data/StimmingADSMotion
+    python stage0/gate01_inventory.py --data-root data/StimmingADSMotion
 """
 
 import argparse
@@ -26,7 +26,7 @@ def parse_identifier(ident):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--data-root", default="/hd/data/StimmingADSMotion")
+    ap.add_argument("--data-root", default="data/StimmingADSMotion")
     args = ap.parse_args()
     root = args.data_root
 
