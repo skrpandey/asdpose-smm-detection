@@ -16,8 +16,20 @@ Three questions about Delta = AUC_standard - AUC_quality_controlled:
    values and report retention, Delta, and the model ranking per cell.
    The frozen thresholds stay the headline; this is post-hoc robustness.
 
+Ceiling check (added at camera-ready, reviewer 5TrW): Delta cannot
+exceed 1 - AUC_QC, so a model near the ceiling shows a small Delta
+mechanically. Block C1.1 therefore also reports, from the same bootstrap
+draws, two versions of the drop that do not share that ceiling:
+  - d' gap = d'(AUC_std) - d'(AUC_QC), with d' = sqrt(2) * Phi^-1(AUC),
+    the class separation under the equal-variance binormal model;
+  - share = Delta / (1 - AUC_QC), the fraction of the largest possible
+    drop the model showed.
+Both are computed from the family-mean AUCs, the same convention as
+Delta. No extra random draws are made, so the Delta intervals are
+identical to the ones reported before the ceiling columns were added.
+
 Usage:
-    python revision/c1_delta_controls.py [--iters 10000] [--draws 1000]
+    python revision/c1_delta_controls.py [--iters 10000] [--draws 1000] [--ci-only]
 """
 
 import argparse
@@ -25,6 +37,7 @@ import csv
 import sys
 
 import numpy as np
+from scipy.stats import norm
 
 sys.path.insert(0, "stage1")
 from protocols import load_index, auc
@@ -62,6 +75,17 @@ def quality_lr_scores(rows):
     return clf.predict_proba(scaler.transform(X))[:, 1]
 
 
+def d_prime(a):
+    """Binormal class separation for an AUC: d' = sqrt(2) * Phi^-1(AUC)."""
+    return np.sqrt(2.0) * norm.ppf(a)
+
+
+def drop_scales(std_auc, qc_auc):
+    """The standard-to-QC drop on three scales: (Delta, d' gap, share)."""
+    delta = std_auc - qc_auc
+    return delta, d_prime(std_auc) - d_prime(qc_auc), delta / (1.0 - qc_auc)
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--iters", type=int, default=10000)
@@ -70,6 +94,9 @@ def main():
     ap.add_argument("--sweep-only", action="store_true",
                     help="skip the bootstrap and subsample blocks; recompute "
                          "only the threshold sweep and its figure")
+    ap.add_argument("--ci-only", action="store_true",
+                    help="run only block C1.1 (bootstrap CIs and the "
+                         "table); skip the subsample control and the sweep")
     args = ap.parse_args()
     rng = np.random.RandomState(args.seed)
 
@@ -99,12 +126,17 @@ def main():
             arrs.append(np.array([sc[r["identifier"]] for r in te]))
         model_scores[name] = arrs
 
-    def family_delta(arrs, seg_mask):
+    def family_aucs(arrs, seg_mask):
+        """Family-mean standard and QC AUC (one entry per seed in arrs)."""
         st, hn = [], []
         for s in arrs:
             st.append(auc(s[seg_mask], labels[seg_mask]))
             hn.append(auc(s[seg_mask & hn_mask], labels[seg_mask & hn_mask]))
-        return float(np.mean(st) - np.mean(hn))
+        return float(np.mean(st)), float(np.mean(hn))
+
+    def family_delta(arrs, seg_mask):
+        st, hn = family_aucs(arrs, seg_mask)
+        return st - hn
 
     children = np.unique(child)
     by_child = {c: child == c for c in children}
@@ -112,12 +144,14 @@ def main():
     full = np.ones(len(te), bool)
     print("## C1.1 Paired child-clustered bootstrap CIs for Delta "
           f"({args.iters} resamples of {len(children)} children)\n")
-    print("| model | Delta | 95% CI |")
-    print("|---|---|---|")
+    print("| model | Delta | 95% CI | d' gap | 95% CI | share | 95% CI |")
+    print("|---|---|---|---|---|---|---|")
     ci_rows = []
     for name, arrs in (model_scores.items() if not args.sweep_only else []):
         point = family_delta(arrs, full)
+        point_scales = drop_scales(*family_aucs(arrs, full))
         boots = []
+        boot_scales = []  # (Delta, d' gap, share) per draw, same draws as boots
         for _ in range(args.iters):
             draw = rng.choice(children, len(children), replace=True)
             # child multiplicity is kept by concatenating index lists
@@ -130,17 +164,28 @@ def main():
                 st.append(auc(ss, seg_labels))
                 hn.append(auc(ss[seg_hn], seg_labels[seg_hn]))
             boots.append(np.mean(st) - np.mean(hn))
+            boot_scales.append(drop_scales(np.mean(st), np.mean(hn)))
         lo, hi = np.percentile(boots, [2.5, 97.5])
-        print(f"| {name} | {point:.3f} | [{lo:.3f}, {hi:.3f}] |")
-        ci_rows.append((name, point, lo, hi))
+        scale_ci = np.percentile(np.array(boot_scales), [2.5, 97.5], axis=0)
+        _, dgap, share = point_scales
+        (_, dlo, slo), (_, dhi, shi) = scale_ci
+        print(f"| {name} | {point:.3f} | [{lo:.3f}, {hi:.3f}] "
+              f"| {dgap:.2f} | [{dlo:.2f}, {dhi:.2f}] "
+              f"| {share:.2f} | [{slo:.2f}, {shi:.2f}] |")
+        ci_rows.append((name, point, lo, hi, dgap, dlo, dhi, share, slo, shi))
 
     if ci_rows:
-        lines = [r"\begin{tabular}{lcc}", r"\toprule",
-                 r"model & $\Delta$ & 95\% CI \\", r"\midrule"]
-        for name, point, lo, hi in ci_rows:
-            lines.append(f"{name} & {point:.3f} & [{lo:.3f}, {hi:.3f}] \\\\")
+        lines = [r"\begin{tabular}{lccc}", r"\toprule",
+                 r"model & $\Delta$ [95\% CI] & $d'$ gap [95\% CI] "
+                 r"& share of bound [95\% CI] \\", r"\midrule"]
+        for name, point, lo, hi, dgap, dlo, dhi, share, slo, shi in ci_rows:
+            lines.append(f"{name} & {point:.3f} [{lo:.3f}, {hi:.3f}] "
+                         f"& {dgap:.2f} [{dlo:.2f}, {dhi:.2f}] "
+                         f"& {share:.2f} [{slo:.2f}, {shi:.2f}] \\\\")
         lines += [r"\bottomrule", r"\end{tabular}"]
         open("results/tables/table_delta_ci.tex", "w").write("\n".join(lines) + "\n")
+    if args.ci_only:
+        return
 
     print(f"\n## C1.2 Random-subsample negative control "
           f"({args.draws} draws of {n_hn_neg} of {(labels == 0).sum()} negatives)\n")
