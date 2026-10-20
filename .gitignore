@@ -55,3 +55,6 @@ cache/
 !logs/**
 !results/
 !results/**
+
+# Tutorials (local study material, never committed)
+tutorial/
