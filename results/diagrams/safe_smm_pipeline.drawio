@@ -37,7 +37,7 @@
         <mxCell id="scores" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#52514e;fontSize=13;spacing=4;" value="&lt;b&gt;Per-segment scores&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#52514e&quot;&gt;all 4,751 test segments&lt;br&gt;scored once&lt;/font&gt;" vertex="1">
           <mxGeometry height="75" width="170" x="558" y="194" as="geometry" />
         </mxCell>
-        <mxCell id="delta" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2a78d6;fontSize=13;spacing=4;" value="&lt;b&gt;AUC under each protocol&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#52514e&quot;&gt;Δ = AUC&lt;sub&gt;STD&lt;/sub&gt; − AUC&lt;sub&gt;QC&lt;/sub&gt;&lt;br&gt;reliance on the tracking cue&lt;br&gt;ours 0.012, checkpoint 0.038&lt;/font&gt;" vertex="1">
+        <mxCell id="delta" parent="1" style="rounded=1;arcSize=12;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#2a78d6;fontSize=13;spacing=4;" value="&lt;b&gt;AUC under each protocol&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#52514e&quot;&gt;Δ = AUC&lt;sub&gt;STD&lt;/sub&gt; − AUC&lt;sub&gt;QC&lt;/sub&gt;&lt;br&gt;drop when the cue is removed&lt;br&gt;bounded by 1 − AUC&lt;sub&gt;QC&lt;/sub&gt; (Section 3.2)&lt;/font&gt;" vertex="1">
           <mxGeometry height="75" width="215" x="758" y="194" as="geometry" />
         </mxCell>
         <mxCell id="e1" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#52514e;endArrow=block;endFill=1;exitX=1;exitY=0.25;entryX=0;entryY=0.5;fontSize=13;" target="testsplit">
