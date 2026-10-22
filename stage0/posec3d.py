@@ -109,9 +109,7 @@ class PoseConv3D(nn.Module):
         return ckpt.get("meta", {})
 
 
-# ---------------------------------------------------------------------------
-# test pipeline (mirrors mmaction 0.24 transforms, keypoint branch only)
-# ---------------------------------------------------------------------------
+# test pipeline, mirrors the mmaction 0.24 transforms, keypoint branch only
 
 def uniform_sample_frames_test(num_frames, clip_len=48, num_clips=10, seed=255):
     """UniformSampleFrames._get_test_clips, verbatim logic."""

@@ -70,10 +70,9 @@ def bottom(b):
     return (x + w / 2, y)
 
 
-# ---------------------------------------------------------------- figure
 fig = plt.figure(figsize=(7.0, 4.55))
 
-# -------------------------------------------------------- panel A (top)
+# panel A, top
 axA = fig.add_axes([0.0, 0.56, 1.0, 0.42])
 axA.set_xlim(0, 11.3)
 axA.set_ylim(-0.95, 2.2)
@@ -120,7 +119,7 @@ axA.text(xs[5] - 0.05, y0 - 1.18,
          r"subject-adversarial branch only ($\lambda \ne 0$); every reported result uses $\lambda=0$ (Section 3.5)",
          fontsize=7.0, color=MUTED, ha="left", va="top")
 
-# -------------------------------------------------------- panel B (bottom)
+# panel B, bottom
 axB = fig.add_axes([0.0, 0.0, 1.0, 0.50])
 axB.set_xlim(0, 10.4)
 axB.set_ylim(0, 3.05)

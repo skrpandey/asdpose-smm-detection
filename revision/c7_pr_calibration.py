@@ -1,6 +1,6 @@
 """W2 analysis C7: precision-recall and calibration metrics.
 
-ROC AUC is prevalence-insensitive; deployment is not. This script adds,
+ROC AUC is prevalence-insensitive; deployment is not. Added here,
 for the checkpoint and the v3 family under the standard protocol:
 precision-recall AUC (average precision), Brier score, expected
 calibration error (10 equal-width bins), and the positive predictive

@@ -3,7 +3,7 @@ comparison have detected?
 
 The matched families (three seeds at lambda 0 and 0.3) showed 0.718 vs
 0.696 worst-child AUC, a difference of the same order as the seed
-spread. This script quantifies the claim boundary: a child-clustered
+spread. Here the claim boundary is quantified: a child-clustered
 bootstrap CI on the paired per-child difference between the family-mean
 score vectors, and a minimum detectable effect for the worst-child
 statistic from the observed seed variances (the difference two matched

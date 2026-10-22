@@ -11,8 +11,8 @@ The bound uses the EMPIRICAL entropy of the identity marginal, not
 log N: children contribute unequal segment counts, so H(Y) < log N, and
 substituting log N would inflate the bound (it would no longer be a
 lower bound). The chance floor reported is the majority-class rate, not
-1/N, for the same reason. This corrects an error in the first version
-of this script, found in review.
+1/N, for the same reason. This corrects an error in the first version,
+found in review.
 
 The probe split is by segment within child (identity must appear on both
 sides, so a subject-level split is impossible here by construction).

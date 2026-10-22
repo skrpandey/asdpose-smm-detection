@@ -66,7 +66,7 @@ def per_child_aucs(sc):
     return out
 
 
-# ------------------------------------------------------------- figure 1
+# Figure 1
 LAM_FILES = {
     "0": ["results/segment_scores/stage2_sapl_lam0_seed0_test_scores.csv",
           "results/segment_scores/stage2_sapl_lam0_seed1_test_scores.csv",
@@ -127,7 +127,7 @@ fig.savefig(f"{OUT}/fig_sapl_tradeoff.pdf")
 fig.savefig(f"{OUT}/fig_sapl_tradeoff.png", dpi=200)
 plt.close(fig)
 
-# ------------------------------------------------------------- figure 2
+# Figure 2
 ckpt = per_child_aucs(scores_of("results/segment_scores/gate03_segment_scores.csv"))
 # The headline detector is the matched lambda=0 three-seed family, so the
 # per-child curve averages the three seeds. Plotting one run would show a
@@ -162,7 +162,7 @@ plt.close(fig)
 
 print("wrote", sorted(os.listdir(OUT)))
 
-# ------------------------------------------------------------- figure 3
+# Figure 3
 # confound illustration: per-joint tracking rasters for two segments
 sys.path.insert(0, "stage1")
 from dataset import SegmentDataset

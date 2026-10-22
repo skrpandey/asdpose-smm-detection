@@ -3,7 +3,7 @@ pipeline and the original fork's transform code.
 
 The released checkpoint shipped with TalBarami/mmaction2 (mmaction 0.24
 lineage), whose environment (mmcv 1.x, Python 3.9) cannot be installed
-here. Instead of trusting the port, this script executes the fork's OWN
+here. Instead of trusting the port, this executes the fork's own
 transform classes, extracted by AST from the cloned fork source with a
 minimal mmcv stub (only rescale_size, is_tuple_of, and _pair are touched
 on the keypoint path), runs test segments through both pipelines, and

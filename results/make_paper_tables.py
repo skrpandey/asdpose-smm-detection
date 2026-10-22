@@ -46,7 +46,7 @@ def f(x, digits=3):
 
 os.makedirs(OUT, exist_ok=True)
 
-# ---------------------------------------------------------------- table 1
+# Table 1
 # main comparison: both protocols, all models
 MODELS = [
     ("quality-only logistic regression", None, "5"),
@@ -90,7 +90,7 @@ for name, path, params in MODELS:
 lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_main.tex", "w").write("\n".join(lines) + "\n")
 
-# ---------------------------------------------------------------- table 2
+# Table 2
 # remedy ablation: the 2x2 at both factor-level settings
 def family(paths):
     st, hn = [], []
@@ -134,10 +134,10 @@ lines.append(f"\\quad both (v3), 3 seeds & {f(np.mean(v3_st))} $\\pm$ {f(np.std(
 lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_ablation.tex", "w").write("\n".join(lines) + "\n")
 
-# ---------------------------------------------------------------- table 3
+# Table 3
 # SAPL tradeoff with per-child stats and MI (MI values from stage2 logs,
 # reproduced by stage2/mi_probe.py; kept as a documented constant map so
-# this script has no GPU dependency)
+# nothing here needs a GPU)
 MI_BITS = {"0": 1.3965, "0.1": 1.3444, "0.3": 1.1854, "0.5": 1.0458,
            "0.7": 0.6459, "1.0": 0.5902}  # corrected H_emp(Y)-CE bound
 SAPL = [
@@ -181,7 +181,7 @@ open(f"{OUT}/table_sapl.tex", "w").write("\n".join(lines) + "\n")
 
 print("wrote", os.listdir(OUT))
 
-# ---------------------------------------------------------------- table 4
+# Table 4
 # per-camera AUC and tracking quality (camera = third identifier token)
 def camera_of(r):
     return int(r["identifier"].split("_")[2])
@@ -207,7 +207,7 @@ lines += [r"\bottomrule", r"\end{tabular}"]
 open(f"{OUT}/table_camera.tex", "w").write("\n".join(lines) + "\n")
 print("wrote table_camera.tex")
 
-# ---------------------------------------------------------------- table 5
+# Table 5
 # architecture breadth: 3 architectures x 2 recipe arms
 BREADTH = [
     ("ST-GCN", "3.1M", "base", "results/segment_scores/wacv_stgcn_base_test_scores.csv"),

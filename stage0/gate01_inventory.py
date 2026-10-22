@@ -32,7 +32,7 @@ def main():
 
     print("## Gate 0.1 data inventory\n")
 
-    # --- zip: untrimmed recordings + db.csv ---
+    # the zip: untrimmed recordings and db.csv
     zf = zipfile.ZipFile(f"{root}/asdpose.zip")
     names = zf.namelist()
     pkls = [n for n in names if n.endswith(".pkl")]
@@ -48,7 +48,7 @@ def main():
     print(f"db.csv assessments: {len(db_assessments)} "
           f"(paper says 319; types: {Counter(r['assessment'] for r in rows)})")
 
-    # --- dataset.pkl: annotated segments + split ---
+    # dataset.pkl: annotated segments and the split
     with open(f"{root}/dataset.pkl", "rb") as f:
         d = pickle.load(f)
     ann, split = d["annotations"], d["split"]

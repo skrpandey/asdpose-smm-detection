@@ -14,7 +14,7 @@ Three questions about Delta = AUC_standard - AUC_quality_controlled:
    attributable to the quality-based selection, not to negative-set size.
 3. Sensitivity: sweep both filter thresholds +/-0.05 around the frozen
    values and report retention, Delta, and the model ranking per cell.
-   The frozen thresholds stay the headline; this is post-hoc robustness.
+   The frozen thresholds stay the headline; this is a post-hoc sensitivity check.
 
 Ceiling check (added at camera-ready, reviewer 5TrW): Delta cannot
 exceed 1 - AUC_QC, so a model near the ceiling shows a small Delta

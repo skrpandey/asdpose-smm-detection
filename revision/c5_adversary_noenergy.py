@@ -3,7 +3,7 @@
 Motion energy (mean inter-frame keypoint displacement) is computed from
 the trajectory and can carry genuine behavioral signal, so a
 "quality-only" adversary that includes it is not purely non-behavioral.
-This script refits the logistic adversary on the three pure tracking
+Refit the logistic adversary on the three pure tracking
 statistics (low-confidence fraction, missing fraction, frozen fraction)
 and reports each feature alone, under both protocols.
 
