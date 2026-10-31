@@ -1,8 +1,8 @@
 """Draw the CompactCTRGCN architecture diagram for the supplementary.
 
 Two panels: (A) the network stack from input tensor to the detection
-score, with the SAPL identity branch shown dashed since every reported
-detector result uses lambda = 0 (main paper Section 3.5); (B) one
+score, with the SAPL identity branch shown dashed since every detector
+result outside the SAPL sweep uses lambda = 0 (main paper Section 3.5); (B) one
 spatial-temporal block expanded into its CTR-GC branches and multi-scale
 temporal branches. Numbers (widths, channel counts, kernel sizes) match
 stage1/model.py and sections/math_details.tex; this figure adds no new
@@ -116,7 +116,7 @@ arrow(axA, (bottom(b_gap)[0], bottom(b_gap)[1]), top(b_grl), color=MUTED,
       connectionstyle="arc3,rad=0.0")
 arrow(axA, right(b_grl), left(b_id), color=MUTED, ls=(0, (4, 2)))
 axA.text(xs[5] - 0.05, y0 - 1.18,
-         r"subject-adversarial branch only ($\lambda \ne 0$); every reported result uses $\lambda=0$ (Section 3.5)",
+         r"subject-adversarial branch only ($\lambda \ne 0$); every result outside the sweep uses $\lambda=0$ (Section 3.5)",
          fontsize=7.0, color=MUTED, ha="left", va="top")
 
 # panel B, bottom
