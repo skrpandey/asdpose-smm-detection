@@ -238,6 +238,7 @@ def main():
     # sized and set for a two-column-layout column
     import matplotlib
     matplotlib.use("Agg")
+    matplotlib.rcParams["pdf.fonttype"] = 42  # TrueType, not Type 3, for IEEE PDF eXpress
     import matplotlib.pyplot as plt
     fig, ax = plt.subplots(figsize=(4.8, 2.6))
     xs = np.arange(len(sweep_records))
