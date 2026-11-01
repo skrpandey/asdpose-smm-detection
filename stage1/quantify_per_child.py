@@ -74,7 +74,9 @@ class OursBackend:
         mcfg = ckpt["config"]["model"]
         self.model = CompactCTRGCN(c_in=mcfg["c_in"], widths=tuple(mcfg["widths"]),
                                    blocks_per_stage=mcfg["blocks_per_stage"])
-        self.model.load_state_dict(ckpt["state_dict"])
+        sd = {k.removeprefix("backbone."): v for k, v in ckpt["state_dict"].items()
+              if not k.startswith("adversary.")}
+        self.model.load_state_dict(sd)
         self.model = self.model.to(device).eval()
         self.device = device
         self.velocity = ckpt["config"]["data"].get("velocity", False)
