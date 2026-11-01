@@ -78,3 +78,9 @@ in their config are not used.
 Pooled feature vectors carry recoverable child-identity information
 (paper Section 4.5) and are not released. The dataset itself is
 distributed by its authors.
+
+## License
+
+Code and released checkpoints are under the MIT license (see `LICENSE`),
+the same license as the ASDPose release. The dataset itself is not
+included and stays under its authors' terms.
