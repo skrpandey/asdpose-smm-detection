@@ -122,8 +122,8 @@ def main():
     print(f"PoseConv3D 50 epochs, 10x repeat: {50*args.repeat*iters*dtb/3600:.1f} h "
           f"(what retraining THEIR model here would cost)\n")
 
-    total, used, free = shutil.disk_usage("/hd")
-    print(f"disk /hd: {free/2**30:.0f} GiB free of {total/2**30:.0f} GiB; "
+    total, used, free = shutil.disk_usage(".")
+    print(f"disk: {free/2**30:.0f} GiB free of {total/2**30:.0f} GiB; "
           f"dataset 12 GiB compressed + 26 GiB if the zip is extracted; "
           f"a float32 cache of all segment arrays adds roughly 6 GiB")
 
